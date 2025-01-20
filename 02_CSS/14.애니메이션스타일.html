@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS - 애니메이션 2</title>
+
+    <style>
+        #scale-box {
+            width: 100px; height: 100px;
+            border: 3px solid;
+
+            /* 애니메이션 실행 시간 */
+            transition-duration: 2s;
+        }
+
+        #scale-box:hover {
+            background-color: slateblue;
+
+            transform: scale(1,1);
+        }
+
+    </style>
+</head>
+
+
+<body>
+    <h1>scale</h1>
+    <p>요소의 크기를 변형시키는 기능</p>
+    <div id="scale-box"></div>
+
+</body>
+</html>

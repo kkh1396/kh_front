@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>영역 관련 속성</title>
+
+    <style>
+        .wrap {
+            width: 500px; height: 200px;
+            border: 5px solid skyblue;
+        }
+
+        .area1, .area2 {
+            width: 100%; height: 50%;
+            border: 5px solid plum;
+
+            box-sizing: border-box;
+        }
+
+        .area1 { height: 60%;}
+        .area2 { height: 40%;}
+
+        .area3, .area4 {
+            width: 50%; height: 100%;
+            border: 5px solid pink;
+            box-sizing: border-box;
+
+
+           /* display: inline-block; */
+           /* => 공백이 있는 경우 다음줄에 표시될 수 있음 */
+
+           float: left;
+
+        }
+
+        .area3 { width:  60%;}
+        .area4 { width: 40%;}
+
+        .t1, t2, .t3 {
+            width: 100%; height: 20%;
+            border: 5px solid hotpink;
+            box-sizing: border-box;
+
+        }
+
+        .t2 { height: 60%; }
+
+        .t2_1, .t2_2 {
+            height: 100%; width: 50%;
+            border: 3px solid black;
+            box-sizing: border-box;
+
+            float: left;
+        }
+
+        .t2_1 { width: 60%;}
+        .t2_2 { width: 40%;}
+        
+    </style>
+</head> 
+<body>
+    
+    <div class="area">
+        <ol>
+            <li>content 영역 : 요소 내의 내용이 표시되는 영역</li>
+            <li>border 영역 : 요소 내의 테두리 영역</li>
+            <li>padding 영역 : content 영역과 border영역 사이의 여백</li>
+            <li>margin 영역 : 요소 바깥쪽 영역. 다른 요소와의 간격</li>
+        </ol>
+    </div>
+
+  
+    <hr>
+
+    <h2>div 안에 여러 개의 div 포함</h2>
+    <h3>위 아래로 2등분 하기</h3>
+    <div class="wrap">
+        <div class="area1"></div>
+        <div class="area2"></div>
+    </div>
+
+
+    <h3>좌 우로 2등분 하기</h3>
+     <div class="wrap" id="df">
+        <div class="area3"></div><div class="area4"></div>
+     </div>
+
+
+     <h3>연습하기</h3>
+     <div class="wrap">
+        <div class="t1"></div>
+        <div class="t2">
+            <div class="t2_1"></div>
+            <div class="t2_2"></div>
+        </div>
+        <div class="t3"></div>
+     </div>
+
+
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>

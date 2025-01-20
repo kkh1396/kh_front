@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .area {
+            border: 2px solid dodgerblue;
+            height: 200px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>이벤트 (Event)</h1>
+    <h2>* 이벤트 모델 종류 *</h2>
+
+    <h3>1) 고전 이벤트 모델 (기본)</h3>
+    <p>
+        특정 요소 객체를 가지고 와서
+        해당 요소의 이벤트 속성에 접근한 후<br>
+        이벤트 핸들러를 연결하는 방식 (이벤트 제거 가능!)
+    </p>
+    <!-- button3btn${버튼$}*2 -->
+
+    <button id="btn1">버튼1</button>
+    <button id="btn2">버튼2</button>
+    <div class="area" id="area1"></div>
+
+    <script>
+        const area1 = document.getElementById('area1');
+        //#btn1 요소 객체를 가지고 오기
+        document.querySelector('#btn1').onclick = function () {
+            area1.innerHTML += "버튼 1 클릭됨!! <br>";
+        }
+
+        // #btn2 요소 객체가 클릭되었을 때 
+        // "버튼2가 클릭됨!" #area1 요소에 출력
+        document.querySelector('#btn2').onclick = function () {
+            area1.innerHTML += "버튼 2 클릭됨!! <br>";
+
+            //[버튼1] 클릭이벤트 제거
+            document.getElementById('btn1').onclick = null;
+
+        }
+    </script>
+
+    <hr>
+
+    <h3>2) 인라인 이벤트 모델</h3>
+    <p>
+        요소 내부에 직접 이벤트 속성을 작성하여
+        실행할 내용을 정의하는 방식 <br>
+        주로, 스크립트 내에 정의되어 있는 함수를 호출하는 방식
+    </p>
+    <button onclick="document.getElementById('area2').innerHTML += '인라인 1클릭 <br>'  ">인라인1</button>
+    <button onclick="inlinetest();">인라인2</button>
+    <div class="area" id="area2"></div>
+
+    <script>
+        function inlinetest() {
+            document.getElementById('area2').innerHTML += '인라인2 클릭 <br>';
+        }
+    </script>
+
+    <hr>
+    <h3>3) 표준 이벤트 모델</h3>
+    <p>
+        w3c에서 공식적으로 지정한 이벤트 모델<br>
+        *ie에서 9버전부터 사용하기 시작
+    </p>
+    <button id="btn3">표준 확인</button>
+
+    <script>
+        // #btn3 요소 객체 가지고 오기 
+        const btn3 = document.getElementById('btn3');
+
+        // 선택한요소.addeventListener("이벤트명", 이벤트핸들러(함수))
+
+        // * 버튼 클릭되었을 때 알람창 띄워보기
+        btn3.addEventListener("click", function () {
+            alert("마지막시간입니다.");
+        });
+
+        // * TODO: 마우스가 버튼 요소 내에 들어왔을 때 배경색 변경하기
+        // -> mouseenter
+
+        // * TODO: 마우스가 버튼 요소 바깥으로 나갔을 때 배경색 변경하기(원래대로)
+
+        btn3.addEventListener('mouseenter', function () {
+            btn3.style.backgroundColor = "red";
+        });
+
+        btn3.addEventListener('mouseout', function () {
+            btn3.style.backgroundColor = null
+        });
+
+    </script>
+
+    <hr>
+
+    <h2>* 이벤트가 발생한 요소 객체에 접근하기 *</h2>
+    <button id="btn4">고전이벤트방식</button>
+    <button id="btn5">표준이벤트방식</button>
+
+    <button onclick="changeColor(this);">인라인이벤트방식2</button>
+
+    <script>
+        function changeColor(target) {
+            target.style.backgroundColor = 'skyblue';
+        }
+
+        // TODO : [고전이벤트방식] 버튼이 클릭되었을 때 
+        //              고전 이벤트 방식으로 이벤트 등록
+
+        document.getElementById('btn4').onclick = function (e) {
+            // 매개변수 위치에 변수를 선언하면, 이벤트 객체를 전달 받음!
+            console.log(e);
+            // e=> 이벤트 객체 : 발생된 이벤트 정보
+            // - target : 이벤트가 발생된 해당 요소 객체에 접근할 수 잇는 속성
+            e.target.style.backgroundColor = 'red'
+        }
+        // TODO : [표준이벤트방식] 버튼이 클릭되었을 때 
+        //              표준 이벤트 방식으로 이벤트 등록
+        document.getElementById('btn5').addEventListener("click", function () {
+            event.target.style.backgroundColor = 'violet';
+        })
+
+
+
+    </script>
+
+    <hr>
+
+    <h2>* 태그 별 기본적으로 가지고 있는 이벤트 제거 *</h2>
+    <ul>
+        <li>a태그 : 클릭 시 href 속성을 통해 url을 요청 (페이지 이동)</li>
+        <li>
+            form 태그 내 submit 버튼 :
+            버튼 클릭 시 사용자가 입력한 값들을 form 태그의 action 속성을 통해
+            해당 url로 요청(제출)
+        </li>
+    </ul>
+    <br><br>
+    <p>
+        태그 내의 기본적으로 설정된 이벤트가 실행되지 않게 하는 방법 <br>
+        : 이벤트 핸들러의 반환값을 false로 주면 이벤트가 동작되지 않음
+        ( return false;)
+    </p>
+
+    <h4>a 태그 테스트</h4>
+    <a href="http://www.naver.com" onclick="alert('이동하시겠습니까?'); return false;">네이버로 이동</a>
+    <!-- <a href="http://www.naver.com" onclick="test1();">네이버로 이동1</a> -->
+    <a href="http://www.naver.com" id="move1" onclick="return test1();">네이버로 이동1</a>
+    <!-- <a  id="move1" onclick="test1();">네이버로 이동1</a> -->
+
+    <script>
+        function test1() {
+            //이동하시겠습니까? 질문을 표시하고
+            // 사용자가 확인 버튼을 누르면 페이지 이동
+            //  취소 버튼을 누르면 페이지 이동 X
+            // => confirm()
+
+            // function cancle() {
+
+
+            // }
+
+            // if (!confirm("이동하시겠습니까?")) {
+
+            //     let mv = document.getElementById('move1');
+            //     mv.addEventListener('click', event.preventDefault(), false)
+            //     return false;
+
+            // }
+
+            // }
+
+            if (confirm("이동하시겠습니까?")) {
+                console.log("사용자가 확인 버튼을 클릭함!")
+                return true;
+            } else {
+                console.log("사용자가 취소 버튼을 클릭함!");
+                return false;
+            }
+        }
+
+    </script>
+
+
+    <br><br>
+
+    <h4>form 태그 테스트</h4>
+    <h3>회원가입</h3>
+    <form action="test" method="get">
+        <label for="">아이디</label>
+        <input type="text" id="userId" name="userId" required><br>
+
+        <label for="">비밀번호</label>
+        <input type="password" id="userPwd" name="userPwd" required><br>
+
+        <label for="">비밀번호 확인</label>
+        <input type="password" id="userPwdCheck">
+
+        <!--
+            "비밀번호 확인 " 부분은 사용자의 실수를 방지하기 위한 용도.
+            서버로 요청할 때는 비밀번호와 비밀번호확인의 값이 같을 때만 요청할 것
+            =>같은 값을 중복해서 전송할 필요가 없기 때문에 name 속성 제외!
+        
+        -->
+
+        <br>
+        <input type="submit" value="회원가입" onclick="return validate()">
+
+        <script>
+            function validate() {
+                // 비밀번호 값과 확인값이 다른 경우 false를 반환(리턴)
+
+                const pwd = document.getElementById('userPwd').value;
+                const pwdCheck = document.getElementById('userPwdCheck').value;
+
+                // if (pwd == pwdCheck) {
+                //     return true
+                // } else {
+                //     alert("비밀번호 값이 다름");
+                //     return false
+                // };
+
+                // 아이디값의 길이가 5 ~ 12 사이인 경우에만 회원 가입
+                // => 회원가입 불가 : 아이디값의 길이가 5미만 또는 12초과 (TODO);
+                // * 문자열 길이 : .length ex) "하이".length => 2
+                const idch = document.querySelector("#userId");
+
+                if (idch.value.length < 5 || idch.value.length > 12) {
+                    alert('아이디를 5~12 사이로으로 해주세요');
+                    return false
+                }
+
+            }
+
+        </script>
+
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+
+</html>
