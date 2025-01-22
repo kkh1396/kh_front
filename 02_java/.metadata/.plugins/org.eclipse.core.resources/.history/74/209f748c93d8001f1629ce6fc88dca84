@@ -29,10 +29,7 @@ public class Comparsion {
 		
 		System.out.println("첫번째 숫자와 두번째 숫자는 같은 값인가? "+ (n1 == n2) );
 		System.out.println("첫번째 숫자가 두번째 숫자보다 큰가? "+ (n1 > n2) );
-		System.out.println("두번째 숫자는 짝수인가? "+ (n2 % 2 == 0) );
-		
-		System.out.println("두번째 값은 'A'의 유니코드인가? "+ ( n2 == 'A'));
-		// 'A' : 65 ~ 'Z' :
+		System.out.println("두번째 숫자는 짝수인가? "+ (n2 % 2) );
 		
 	}
 
