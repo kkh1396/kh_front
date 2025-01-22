@@ -1,0 +1,10 @@
+package com.kr.opeator;
+
+public class InDecrease {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

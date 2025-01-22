@@ -29,5 +29,6 @@ public class CastingPractice1 {
 		// printf 메소드
 		 System.out.printf("%c unicode : %d",i,(int)i);
 		
+		
 	}
 }
