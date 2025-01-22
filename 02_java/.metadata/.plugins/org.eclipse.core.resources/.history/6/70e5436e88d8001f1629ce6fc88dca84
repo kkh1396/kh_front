@@ -23,32 +23,6 @@ public class InDecrease {
 	
 	
 	public static void method3() {
-		int a = 10;
-		int b = 20;
-		int c = 30;
-		
-		int r1 = a++;
-		
-		System.out.printf("a: %d, b: %d, c: %d. r1: %d \n",a,b,c,r1 );
-		
-		// => a: 11, b: 20, c: 30, r1: 10
-		
-		int r2 = (++a) + (b++);
-		System.out.printf("r2 : %d \n",r2); // 
-		// 예상  32      a:12 b:21
-		int r3 = (a++) + (--b) + (--c);
-		System.out.printf("r3 : %d \n",r3);
-		// 예상   12 + +20 +29  49+12  = 61
-		//       a : 13 b : 20 c: 29 
-		
-		System.out.printf("a: %d, b: %d, c: %d. \n",a,b,c);
-		
-		
-		
-		
-		
-		
-		
 		
 	}
 	

@@ -38,7 +38,7 @@ public class InDecrease {
 		// 예상  32      a:12 b:21
 		int r3 = (a++) + (--b) + (--c);
 		System.out.printf("r3 : %d \n",r3);
-		// 예상   12 + +20 +29  49+12  = 61
+		// 예상   12 + +21 +29  51+12  = 63
 		//       a : 13 b : 20 c: 29 
 		
 		System.out.printf("a: %d, b: %d, c: %d. \n",a,b,c);
