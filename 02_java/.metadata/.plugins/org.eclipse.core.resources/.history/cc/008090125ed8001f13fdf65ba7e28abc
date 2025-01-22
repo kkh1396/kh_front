@@ -21,49 +21,7 @@ public class Cast {
 	    */
 	public static void main(String[] args) {
 		   autoCasting();
-		   forceCasting() ;
 	}
-	
-	public static void forceCasting() {
-		/*
-		 * 
-		 *  강제 형변환
-		 *   : 자동 형변환이 되지 않는 경우, 직접 형변환을 해주는 것
-		 *     큰 범위의 자료형에서 작은 범위의 자료형으로 변환이 필요할 때
-		 *     
-		 *     (변환할자료형)변환할대상
-		 *     => 변환대상 : 값, 변수, .....
-		 *     
-		 */
-		// 실수형 d1 변수에 4.0 이라는 값을 저장
-		double d1 = 4.0;
-		// 정수형 i1 변수에 50이라는 값을 저장
-		int i1 = 50;
-		
-		// d1 변수와 i1 변수의 합을 정수형 result변수에 저장
-		int result;
-		result = (int)d1 + i1;
-		// 4.0 (double) + 50(int) => 4.0 (int) + 50(int) = 54.0(int)
-		//   => 54.0(double) => 54(int)
-		result = (int)(d1 + i1);
-		// 4.0 (double) + 50(int) => 4.0 (double) + 50(double) = 54.0(double)
-		//   => 54.0(double) => 54(int)
-		System.out.println(result);
-		
-		//--------------------------------------------
-		
-		// * 강제 형변환 시 데이터 손실이 발생될 수 있음!
-		int i2 = 290;
-		byte i3 = (byte)i2;    //i3 (byte) = i2(int) => 강제 형변환 필요
-		// byte 범위 : -128 ~ 127
-		
-		System.out.println("i3 : " + i3); // => 34
-		
-		
-	}
-	
-	
-	
 	
 	public static void autoCasting() {
 		/*
@@ -87,7 +45,7 @@ public class Cast {
 								  // 15 => 15.0
 								 // i2 + d2 => int + double => double + double = double 
 		
-		System.out.println(result);    //  i2 + d2 = 18.3(double)
+		System.out.print(reuslt);
 		
 	}
 }

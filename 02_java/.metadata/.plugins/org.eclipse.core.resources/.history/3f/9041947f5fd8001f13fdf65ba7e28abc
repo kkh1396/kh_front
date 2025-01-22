@@ -43,21 +43,8 @@ public class Cast {
 		// d1 변수와 i1 변수의 합을 정수형 result변수에 저장
 		int result;
 		result = (int)d1 + i1;
-		// 4.0 (double) + 50(int) => 4.0 (int) + 50(int) = 54.0(int)
-		//   => 54.0(double) => 54(int)
-		result = (int)(d1 + i1);
-		// 4.0 (double) + 50(int) => 4.0 (double) + 50(double) = 54.0(double)
-		//   => 54.0(double) => 54(int)
-		System.out.println(result);
-		
-		//--------------------------------------------
-		
-		// * 강제 형변환 시 데이터 손실이 발생될 수 있음!
-		int i2 = 290;
-		byte i3 = (byte)i2;    //i3 (byte) = i2(int) => 강제 형변환 필요
-		// byte 범위 : -128 ~ 127
-		
-		System.out.println("i3 : " + i3); // => 34
+		// 4.0 + 50 => 4 + 50 = 45
+		System.out.print(result);
 		
 		
 	}
@@ -87,7 +74,7 @@ public class Cast {
 								  // 15 => 15.0
 								 // i2 + d2 => int + double => double + double = double 
 		
-		System.out.println(result);    //  i2 + d2 = 18.3(double)
+		System.out.print(result);    //  i2 + d2 = 18.3(double)
 		
 	}
 }

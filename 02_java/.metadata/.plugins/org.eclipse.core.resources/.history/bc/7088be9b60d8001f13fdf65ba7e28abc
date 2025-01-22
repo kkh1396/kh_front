@@ -48,7 +48,7 @@ public class Cast {
 		result = (int)(d1 + i1);
 		// 4.0 (double) + 50(int) => 4.0 (double) + 50(double) = 54.0(double)
 		//   => 54.0(double) => 54(int)
-		System.out.println(result);
+		System.out.print(result);
 		
 		//--------------------------------------------
 		
