@@ -1,0 +1,32 @@
+package com.kh;
+
+public class VariablePractice {
+
+	public static void main(String[] args) {
+		/*
+		 *  (1) 아래 코드를 변수를 사용하여 실행
+		 * 
+		 */
+		System.out.println("현재 2025년이고 올해 20살입니다.");
+		// => 매년 출력한다면.. 어떤 부분을 변수로 사용할지
+		
+		int year = 2025;
+		final int Age = 20;
+		
+		// println 메소드 사용
+		System.out.println("현재 "+ year +"년이고 올해 " + Age + "살입니다." );
+		
+		// printf 메소드 사용 
+		System.out.printf("현재 %d년이고 올해  %d살입니다.",year,Age );
+		
+//		System.out.println("몸무게가 80kg 이상인 경우 탑승하지 못합니다.");
+		// 함수 선언
+		int kg = 80;
+		
+		// - println 메소드 사용
+	
+	     System.out.println("몸무게가" + kg +"kg 이상인 경우 탑승하지 못합니다.");
+		// - printf 메소드 사용
+	     System.out.printf("몸무게가 %d 이상인 경우 탑승하지 못합니다.",kg);
+	}
+}

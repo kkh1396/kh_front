@@ -1,0 +1,25 @@
+package com.kh;
+
+public class Variable {
+	//자바 실행 시 꼭 필요한 메소드 : main 
+    public static void main(String[] args) {
+		/*
+		 *  변수의 목적?
+		 *  - 데이터(값)를 저장하기 위한 공간
+		 *  - 가독성 증가 ( 변수의 이름을 의미있게 지어주어야 함!)
+		 *  - 재사용성 증가 ( 한번 값을 저장하면 필요할 떄 마다 변수 이름으로 가져다가 사용)
+		 *  - 유지보수 용이 ( 한번 저장해놓으면 해당 위치의 값을 변경 )
+		 */
+    	
+    	// 월급 계산 = 시급 X 근무시간 X 근무일수
+    	// 출력 형식 xxx : xxxxx원 
+    	// 2025년 최저시급 : 10050
+    	
+    	System.out.println("홍길동 : 10050원");
+    	System.out.println("홍길동 : "+ 10050*6*14 + "원");
+    	System.out.println("김길동 : "+ 10050*8*14 + "원");
+    	System.out.println("남길동 : "+ 10050*10*14 + "원");
+    	System.out.println("이길동 : "+ 10050*9*14 + "원");
+ 	}
+	
+}

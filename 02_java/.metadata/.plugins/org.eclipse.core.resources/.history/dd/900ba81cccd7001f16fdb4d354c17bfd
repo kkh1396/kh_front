@@ -1,0 +1,29 @@
+package func;
+
+import java.util.Scanner;
+
+public class VariablePractice1 {
+
+	
+	public static void main(String[] args) {
+		
+	}
+	
+	public static void run() {
+		
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("이름을 입력하세요 : \n");
+		int name = sc.nextInt();
+		System.out.print("성별을 입력하세요(남/여) : \n");
+		int gender = sc.nextInt();
+		System.out.print("나이를 입력하세요 : \n");
+		int age = sc.nextInt();
+		System.out.print("키를 입력하세요(cm) : \n");
+		int ki = sc.nextInt();
+		
+		System.out.printf("키 %dcm인 %d살 %s %s님 반갑습니다^^",ki,age,gender,name);
+		
+	}
+	
+}
