@@ -1,0 +1,77 @@
+package com.kr.opeator;
+
+import java.util.Scanner;
+
+public class Practice {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+//		example01();
+		example02();
+	}
+
+	/*
+	 * [1] 복합 대입 연산자
+	 *    : 대입 연산자와 다른 연사를 조합해 하나의 연산자처럼 사용되는 연산자
+	 *    
+	 *     n1 += 10;
+	 * 
+	 */
+	
+	/*
+	 *  [2] 비교 연산자, 논리 연산자
+	 *   : 결과 값이 참(true) 또는 거짓(false)
+	 * 
+	 */
+	
+	public static void example02() {
+		
+	    /*
+	     *  나이를 입력받아 초등학생, 중학생, 고등학생인지 구분하여 출력 (+ 그 외에는 "알수없음")
+	     *  초등학생 : 8살 ~ 13살
+	     *  중학생 : 14살 ~ 16살
+	     *  고등학생 : 17살 ~ 19살
+	     * 
+	     * 
+	     * 
+	     */
+		
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("나이를 입력하시오");
+		int age = sc.nextInt();
+		
+		
+		String result = " " + ( age > 7 &&  age < 14 ? "초등학생" : (age > 13 && age <17) ? "중학생" : (age > 16 && age <20) ? "고등학생" : "알수없음") ;
+		System.out.print("나이는 " + age + "이고" + result);
+		
+		
+		
+		
+	}
+	
+	
+	public static void example01() {
+		/*
+		 * 사용자로부터 숫자를 입력받아 그 값을 7L을 더한 결과를 출력
+		 * 	// => 숫자를 입력받을 때 타입을 short 자료형 사용 (.nextShort())
+		 * 
+		 */
+		
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("값의 입력");
+		short sh = sc.nextShort();
+		
+//		sh += 7L ;  //"0.0f -> float"
+//      sh = sh + 7L;
+		
+		
+//		System.out.print("입력 값 : "+ sh + ", 7L을 더한 값 : " + (sh+=7L));
+//		sh = (short)(sh + (short)7L);
+//		sh = (short) + 7L (long;)
+		
+		
+	}
+}

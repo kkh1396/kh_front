@@ -34,11 +34,26 @@ public class Triple {
 		
 		Scanner sc = new Scanner(System.in);
 		
-		System.out.println("아래와 같이 입력 시 연산 결과를 확인할 수 있습니다.");
-		System.out.println("예) 10 20 + => 10+20=30의 결과 확인");
-		System.out.println(" : ");
-		String s = sc.nextLine();
-		System.out.println(s);
+//		System.out.println("아래와 같이 입력 시 연산 결과를 확인할 수 있습니다.");
+//		System.out.println("예) 10 20 + => 10+20=30의 결과 확인");
+//		System.out.println(" : ");
+//		String s = sc.nextLine();
+//		System.out.println(s);
+		
+		System.out.print("두개의 정수와 + 또는 - 입력");	// 버퍼:
+		int n1 = sc.nextInt();						// 입력 : 10 20 + 버퍼 : 10 20 + \n
+													// n1 = 10;    버퍼 20 + \n
+		int n2 = sc.nextInt();						// 버퍼: 20 +\n
+												    // n2 = 20;    버퍼: +\n
+		char op = sc.next().charAt(0);				// 버퍼 +\n
+													// op = +;    버퍼: \n
+		
+		String result = " "+(op == '+' ? n1 + n2 : (op == '-'? n1 - n2 : "입력이 잘못되었습니다"));
+		System.out.printf("%d %c %d = %s\n",n1,op,n2,result);
+		
+		
+		
+		
 		
 	}
 	

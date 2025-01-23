@@ -1,0 +1,37 @@
+package com.kr.opeator;
+
+import java.util.Scanner;
+
+public class Practice {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		example01();
+	}
+
+	/*
+	 * [1] 복합 대입 연산자
+	 *    : 대입 연산자와 다른 연사를 조합해 하나의 연산자처럼 사용되는 연산자
+	 *    
+	 *     n1 += 10;
+	 * 
+	 */
+	public static void example01() {
+		/*
+		 * 사용자로부터 숫자를 입력받아 그 값을 7L을 더한 결과를 출력
+		 * 	// => 숫자를 입력받을 때 타입을 short 자료형 사용 (.nextShort())
+		 * 
+		 */
+		
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("값의 입력");
+		short sh = sc.nextShort();
+		
+		sh += 7L ;
+		
+		System.out.print(sh);
+		
+	}
+}
