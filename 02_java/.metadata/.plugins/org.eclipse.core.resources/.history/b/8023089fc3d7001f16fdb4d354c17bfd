@@ -1,8 +1,0 @@
-package com.kh;
-
-public class VariablePractice {
-
-	public static void main(String[] args) {
-		
-	}
-}
