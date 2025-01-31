@@ -40,8 +40,54 @@ public class For {
 //		method3();
 //		method4();
 //		method5();
-		method6();
+//		method6();
+//		method7();
+		method8();
 	}
+	
+	public static void method8() {
+		// 2단부터 9단까지 출력
+		
+//		for (int i=1; i<=9; i++) {
+//			System.out.printf("\n");
+//			System.out.printf("=========================================== \n");
+//			System.out.printf("%d단 입니다 \n",i);
+//			
+//			for (int j=1; j<=9; j++) {
+//				int sum = i * j;
+//				System.out.printf("%d x %d = %d \n",i,j,sum);
+//			}
+//		}
+		   
+		for (int i=1; i<=9; i++) {
+			
+			for  (int j=2; j<=9; j++) {
+				int sum = i * j;
+				System.out.printf("%d x %d = %d\t",j,i,sum);				
+			}
+			System.out.println();
+		}
+		
+	}
+	public static void method7() {
+		// 사용자에게 2~9사이의 정수를 입력받아 
+		// 해당 구구단을 출력하기
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("2~9 사이의 정수 입력");
+		int num = sc.nextInt();
+		
+		
+		if ( 2 <= num && num <=9  ) {	
+		 for (int i=1; i<=9; i++) {
+				 int dan = num * i;
+				 System.out.printf("%d x %d = %d \n",num,i,dan);
+		 }
+		}else {
+			 System.out.printf("입력범위를 벗어났습니다");
+		}
+	}
+	
 	
 	public static void method6() {
 		// 상수로 변수 선언시에는 변수는 대문자로 선언 
@@ -116,10 +162,11 @@ public class For {
 		if (1 <= num && num <= 10) {
 			//1부터 입력받은값(num)까지의 총 합 계산
 			int sum = 0;
-			for(int i=1; 1<=10; i++) {
+			for(int i=1; i<=num; i++) {
 			   sum += i;	
-			   System.out.printf("1부터 %d까지의 총 합 : %d \n",num,sum);
+			  
 			}
+			System.out.printf("1부터 %d까지의 총 합 : %d \n",num,sum);
 		} else {
 			System.out.print("범위를 벗어난 값이 입력되었습니다.");
 		}
