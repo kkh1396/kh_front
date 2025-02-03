@@ -17,9 +17,9 @@ public class LoopPractice {
 //		method9();
 //		method10();
 //		method11();
-//		method12(); 
+		method12(); //
 //		method13();
-		method14(); //
+//		method14(); //
 		
 	}
 	
@@ -30,25 +30,19 @@ public class LoopPractice {
 		System.out.print("정수 입력 :");
 		int num = sc.nextInt();
 		
-		
-//		String sum = "";
-//		for (int i=1; i<=num; i++) {
-//			sum += "*";
-//		}
-//		
-//		for (int i=1; i<=num; num--) {
-//			sum = sum.substring(0,num);
-//			System.out.println(sum);
-//		}
-		
-		
-		for (int i=1; i<=num; num--) {
-			  for(int j=1; j<=num; j++) {
-				  System.out.print("*");
-			  }
-			  System.out.println();
-
+		String sum = "";
+		for (int i=1; i<=num; i++) {
+			sum += "*";
+			System.out.println(sum);
 		}
+		
+		for (int j=1; j<=num; num--) {
+			sum -= j;
+		}
+		
+		
+		
+		
 		
 	}
 		
@@ -61,87 +55,68 @@ public class LoopPractice {
 		System.out.print("정수 입력 :");
 		int num = sc.nextInt();
 		
-//		String sum = "";
-//		for (int i=1; i<=num; i++) {
-//			sum += "*";
-//			System.out.println(sum);
-//		}
-		
+		String sum = "";
 		for (int i=1; i<=num; i++) {
-			  for(int j=1; j<=i; j++) {
-				  System.out.print("*");
-			  }
-			  System.out.println();
-
+			sum += "*";
+			System.out.println(sum);
 		}
 		
 	}
 	
 	
-public static void  method12() {
+	public static void  method12() {
+		Scanner sc = new Scanner(System.in);
 		
-		Scanner sc = new Scanner(System.in);	
-		boolean run = true;
-		while (run) {
-
-			System.out.print("연산자(+, -, *, /, %) : ");
-			
-			String ja = sc.next();
-			char ja1 =  ja.charAt(0);
-			
-			if (ja.equals("exit")) {
-				System.out.print("프로그램을 종료합니다.");
-				break;
-			} else {
-
-					System.out.print("정수1 :");
-					int num1 = sc.nextInt();
-					System.out.print("정수2 :");
-					int num2 = sc.nextInt();
-			
-						switch (ja1) {
-							case '+':
-//							case "+":
-									int num3 = num1 + num2;
-									System.out.printf("%d %c %d = %d \n",num1,ja1,num2,num3);
-									run = false;
-									break;
-							case '-':
-//							case "-":
-									num3 = num1 - num2;
-									System.out.printf("%d %c %d = %d \n",num1,ja1,num2,num3);
-									run = false;
-									break;
-							case '*':
-//							case "*":
-									num3 = num1 * num2;
-									System.out.printf("%d %c %d = %d \n",num1,ja1,num2,num3);
-									run = false;
-									break;
-							case '/':
-//							case "/":
-									if ( num2 != 0) {
-										num3 = num1 / num2;
-										System.out.printf("%d %c %d = %d \n",num1,ja1,num2,num3);
-										run = false;
-										break;
-									} else {
-										System.out.println("0으로 나눌 수 없습니다 다시 입력하세요.");
-										break;
-									}
-							case '%':
-//							case "%":
-									num3 = num1 % num2;
-									System.out.printf("%d %c %d = %d \n",num1,ja1,num2,num3);	
-									run = false;
-									break;
-
-							default:
-									System.out.println("없는 연산자입니다. 다시입력해주세요.");
-						}
-				}
-			}
+		while (true) {
+		System.out.print("연산자 :");
+		String san = sc.next();
+		if ( san.equals("exit")) {
+			System.out.print("프로그램을 종료합니다." );
+			break;
 		}
+		
+		System.out.print("정수1 :");
+		int num1 = sc.nextInt();
+		System.out.print("정수2 :");
+		int num2 = sc.nextInt();
+		
+		
+		int num3 = 0;
+		switch (san) {
+			case "+" :
+				num3 = num1 + num2;
+				System.out.printf("%d + %d = %d \n",num1,num2,num3);
+				break;
+			case "-" :
+				num3 = num1 - num2;
+				System.out.printf("%d - %d = %d \n",num1,num2,num3);
+				break;
+			case "*" :
+				num3 = num1 * num2;
+				System.out.printf("%d * %d = %d \n",num1,num2,num3);
+				break;
+			case "%" :
+				num3 = num1 % num2;	
+				System.out.printf("%d % %d = %d",num1,num2,num3);
+				break;
+			case "/" :
+				if ( san == "/") {
+					if (num2==0) {
+						System.out.print("0으로 나눌 수 없습니다. 다시 입력해주세요 \n" );
+						continue;
+						} 
+					} else {
+				num3 = num1 / num2;
+				System.out.printf("%d / %d = %d \n",num1,num2,num3);
+				break;
+					}
+			default:
+				System.out.printf("없는 연사자입니다. 다시 입력해주세요 \n");
+				break;
+			}
+		
+		}
+	}
 	
 	public static void  method11() {
 		
