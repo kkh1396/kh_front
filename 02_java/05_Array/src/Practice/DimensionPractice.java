@@ -14,7 +14,47 @@ public class DimensionPractice {
 //		practice6();
 //		practice7();
 //		practice8();
-		practice9();
+//		practice9();
+		practice10();
+	}
+	
+	public static void practice10() {
+		Scanner sc = new Scanner(System.in);
+
+		int[][] arr = new int[6][6];
+		
+		System.out.print("인덱스 행 입력");
+		int row = sc.nextInt();
+		System.out.print("인덱스 열 입력");
+		int col = sc.nextInt();
+			
+		for(int i=0; i<1; i++) {
+			for(int j=0; j<arr[i].length;j++) {
+				
+				arr[i][j]= 0;
+				if (i==0 && j>0) {
+				    arr[i][j] = j-1;
+//				    System.out.println("i : "+ i + " j : "+ j);
+//				    System.out.println(arr[i][j]+ " ");
+				}
+				
+				if (i==0 && j>0) {
+				    arr[j][i] = j-1;
+//				    System.out.println(" j : "+ j+" i : "+ i);
+//				    System.out.println(arr[j][i]+ " ");
+				}
+				
+				
+//			    System.out.println(arr[i][j]+ " ");
+			}
+		}
+		
+		for(int i=0; i<1; i++) {
+			for(int j=0; j<arr[i].length;j++) {
+				System.out.print(arr[i][j]+ " ");
+			}
+			}
+		
 	}
 
 	public static void practice9() {
@@ -35,7 +75,7 @@ public class DimensionPractice {
 					for (int j = 0; j < 2; j++) {
 
 						Squad_1[i][j] = Student[sq++];
-						System.out.print("i : "+ i+ " j : "+ j +Squad_1[i][j] + " ");
+//						System.out.print("i : "+ i+ " j : "+ j +Squad_1[i][j] + " ");
 						System.out.print(Squad_1[i][j] + " ");
 					}
 					System.out.println();
@@ -45,7 +85,7 @@ public class DimensionPractice {
 					for (int j = 0; j < 2; j++) {
 
 						Squad_2[i][j] = Student[sq++];
-						System.out.print("i : "+ i+ " j : "+ j  + Squad_2[i][j]+" ");
+//						System.out.print("i : "+ i+ " j : "+ j  + Squad_2[i][j]+" ");
 						System.out.print(Squad_2[i][j] + " ");
 					}
 					System.out.println();
@@ -60,29 +100,45 @@ public class DimensionPractice {
 		System.out.print("검색할 학생 이름을 입력하세요 : ");
 		String name = sc.nextLine();
 
+		
+		// 각 분단에서 학생 검색시 유무 확인
 		boolean yes = false;
+		int row  = 0;
+		int col = 0;
+		int Squad = 0;
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 2; j++) {
 						
 				if (Squad_1[i][j].equals(name) ) {
-					 yes = true;
-					 
+				    yes = true;		
+				    row = i;
+				    col = j;
+				    Squad = 1;
 				}
 				
 				if (Squad_2[i][j].equals(name) ) {
-					 yes = true;
+					yes= true;
+					row = i;
+				    col = j;
+				    Squad = 2;
 				}				
 			}
 			
 		}
+		
+		// 학생 유무 확인것을 화면에 표시
 		if (yes == true) {
-			System.out.println(name + "학생은 있습니다.");
-			System.out.println("검색하신 학생은 분단 번째 줄 쪽에 있습니다.");
-			yes = false;
+			   if ( col == 0) {
+				   System.out.printf("검색하신 %s 학생은 %d분단 %d 번째 줄 왼쪽에 있습니다. ",name,Squad , row+1 );
+			   } else {
+				   System.out.printf("검색하신 %s 학생은 %d분단 %d 번째 줄 오른쪽에 있습니다. ",name,Squad , row+1 );
+			   	}
+			    
 			} else {
 			System.out.print(name + "학생은 없습니다.");
 			}
 		
+		// 
 		
 	}
 
