@@ -17,12 +17,12 @@ public class PersonController {
 		// 학생수 
 			for(int j=0; j<s.length;j++) {
 				   if( s[j] != null) {
-					  s_sum++; 
-				   }
+	 
+					  s_sum++;			   }
 				}
 			for(int j=0; j<s.length;j++) {
-				   if( s[j] != null) {
-					  s_sum++; 
+				   if( e[j] != null) {
+					  e_sum++; 
 				   }
 				}
 			
@@ -30,16 +30,14 @@ public class PersonController {
 			temp[1] = e_sum;
 				
 		return temp;
-		
-		
-		
+	
 	}
 	
 	public void insertStudent(String name, int age, double height, double weight
 								, int grade, String major) {
 		
 		for (int i=0; i<s.length;i++) {
-			if (s[i] != null) {
+			if (s[i] == null) {
 				s[i] = new Student(name, age,  height,  weight,  grade,  major);
 			}
 		}
@@ -50,7 +48,7 @@ public class PersonController {
 		
 		Student[] temp = new Student[s.length];
 		   for ( int i=0; i<s.length; i++) {
-			   if (s[i] != null) {
+			   if (s[i] == null) {
 				   temp[i] = s[i];
 			   }
 		   }	
@@ -60,7 +58,7 @@ public class PersonController {
 	public void insertEmployee(String name, int age, double height, double weight
 								, int salary, String dept) {
 		for (int i=0; i<s.length;i++) {
-			if (e[i] != null) {
+			if (e[i] == null) {
 				e[i] = new Employee(name, age,  height,  weight,  salary,  dept);
 			}
 		}

@@ -13,19 +13,18 @@ public class PersonMenu {
 
 		boolean run = true;
 		while (run) {
-		System.out.println("학생은 최대 3명까지 저장할 수 있습니다.");
-		System.out.println("현재 저장된 학생은 " + pc.personCount()[0] + "명입니다.");
-		System.out.println("사원은 최대 10명까지 저장할 수 있습니다.");
-		System.out.println("현재 저장된 사원은 " + pc.personCount()[1] + "명입니다.");
+			System.out.println("학생은 최대 3명까지 저장할 수 있습니다.");
+			System.out.println("현재 저장된 학생은 " + pc.personCount()[0] + "명입니다.");
+			System.out.println("사원은 최대 10명까지 저장할 수 있습니다.");
+			System.out.println("현재 저장된 사원은 " + pc.personCount()[1] + "명입니다.");
 
-		System.out.println();
-		System.out.println("1. 학생 메뉴");
-		System.out.println("2. 사원 메뉴");
-		System.out.println("9. 끝내기");
-		System.out.print("메뉴 번호 : ");
-		int menuNum = sc.nextInt();
+			System.out.println();
+			System.out.println("1. 학생 메뉴");
+			System.out.println("2. 사원 메뉴");
+			System.out.println("9. 끝내기");
+			System.out.print("메뉴 번호 : ");
+			int menuNum = sc.nextInt();
 
-		
 			switch (menuNum) {
 			case 1:
 				StudentMenu();
@@ -44,7 +43,6 @@ public class PersonMenu {
 
 	public void StudentMenu() {
 
-		
 		System.out.println("1. 학생 추가");
 		System.out.println("2. 학생 보기");
 		System.out.println("9. 메인으로");
@@ -71,6 +69,7 @@ public class PersonMenu {
 
 	public void insertStudent() {
 		boolean run = true;
+		while (run) {
 			System.out.print("학생 이름 : ");
 			String name = sc.next();
 			System.out.print("학생 나이 : ");
@@ -95,15 +94,15 @@ public class PersonMenu {
 			if (pc.printStudent()[2] != null) {
 				System.out.println("학생을 담을 수 있는 공간이 꽉 찼기 때문에 학생 추가를 종료하고 학생메뉴로 돌아갑니다. ");
 				run = false;
+			}
 		}
 	}
 
 	public void printStudent() {
 
-		
-		for (int i=0; i<pc.printStudent().length;i++) {
+		for (int i = 0; i < pc.printStudent().length; i++) {
 			if (pc.printStudent()[i] != null) {
-			System.out.println(pc.printStudent()[i].toString());
+				System.out.println(pc.printStudent()[i].toString());
 			}
 		}
 	}

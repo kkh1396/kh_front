@@ -19,7 +19,7 @@ public class Person {
 	
 	public String toString() {
 		
-		return String.format("%s %d %l %l ",name,age,height,weight);
+		return String.format("%s %d %.1f %.1f ",name,age,height,weight);
 	}
 
 	public String getName() {
