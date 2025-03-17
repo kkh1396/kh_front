@@ -1,0 +1,55 @@
+[ 선택자 찾기 ]
+- 모든 span 요소 : 
+- 아이디 속성이 title인 요소 : 
+- 클래스 값이 bg-white인 요소 :  
+- 클래스가 wrap인 요소 내의 모든 input 요소 :
+
+[ 조건에 맞게 스타일 적용 ]
+------------------------
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>복습 - 25/01/06</title>
+
+    <style>
+        /* 
+         * 클래스가 wrap인 요소 
+           : 배경색 (#a47864)
+           : 글자색 (#31511e)
+           : 글자굵기 (bold)
+         */
+        
+         .wrap{background-color: #a47864; color: #31511e ; font-weight: bold;}
+
+
+        /*
+         * 아이디가 sp인 요소
+           : 글자색 (white)
+           : 글자크기 (100px)
+         */
+          #sp{ color:white ; font-size: 100px;}
+
+        /*
+         * 아이디가 sp인 요소 다음에 오는 p 요소
+           : 글자색 (#153448)
+           : 글자크기 (1.2배)
+         */
+
+         #sp + p {color : #153448 ; font-size: 1.2em;}
+		
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <p>SAMPLE1</p>
+        <p id="sp">SAMPLE2</p>
+        <p>SAMPLE3</p>
+        <p>SAMPLE4</p>
+        <p>SAMPLE5</p>
+    </div>
+</body>
+</html>
+------------------------
+```

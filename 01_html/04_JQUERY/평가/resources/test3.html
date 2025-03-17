@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+
+
+    <style>
+        .area {
+            border: 1px solid skyblue;
+            height: 500px;
+        }
+
+        .qa_box div {
+
+            background-color: tomato;
+            border: 1px solid orangered;
+            width: 300px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        form {
+            border: 1px solid greenyellow;
+            width: 300px;
+            height: 200px;
+            border-radius: 10px;
+            margin-top: 5px;
+            padding: 10px;
+            box-sizing: border-box;
+            display: none;
+        }
+
+        input[type=text] {
+            width: 200px;
+            height: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="qa_box">
+        <div>로그인</div>
+        <form action="">
+            <label for="idbox">아이디</label><br>
+            <input type="text" id="idbox"> <br>
+            <label for="pwdbox">비밀번호</label><br>
+            <input type="text" id="pwdbox"><br>
+            <label for="emailbox">이메일</label><br>
+            <input type="text" id="emailbox"><br>
+            <br>
+            <input type="button" value="login" id="loginbox">
+            <input type="button" value="close" id="closebox">
+
+        </form>
+
+    </div>
+
+    <div class="area1">ssssss</div>
+
+    <script>
+
+
+        $("#pwdbox").click(function () {
+            $(this).val("영문자 대/소문자, 특수문자, 숫자 포함 8 ~ 32자");
+            // $(this).keydown = $(this).val(" ");
+            $(this).keydown
+
+        })
+
+
+        // $("#loginbox").click(function() {
+            
+        //     let pwdck = $("#pwdbox").val().length;
+        //     let emailck = $("#emailbox").val();
+
+        //     if (pwdck == 0) {
+        //         $(".area1").html +="비밀번호를 입력하세요"
+
+        //     }
+
+        //     if (emailck == 0) {
+        //         $(".area1").html +="이메일를 입력하세요"
+        //     }
+        // })
+
+
+
+
+
+        $(function () {
+            $(".qa_box div").click(function () {
+                // $(this). : 클릭 이벤트가 발생된 div 요소
+                // $(this).next() : 해당 요소 바로 다음의 요소 ( -> p)
+
+                const $p = $(this).next();
+                // $를 붙이면 jQuery 방식으로 선택된 요소를 의미함!
+
+                if ($p.css("display") == "none") {
+                    // p요소의 display 스타일 속성의 값이 "none"인 경우
+                    $p.slideDown();
+                }
+
+                $("#closebox").click(function () {
+                    const $T = $(".qa_box div").next()
+
+                    $T.slideUp();
+
+                })
+
+
+                // else {
+                //     $p.slideUp();
+                // }
+            })
+        })
+    </script>
+</body>
+
+</html>

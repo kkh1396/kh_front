@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script>
+
+
+        let name = prompt("이름");
+        let nameck = /^[가-힣]{2,}$/;
+        let nck = nameck.test(name);
+
+        if (nck == true) {
+            alert(`안녕하세요 ${name}`);
+        } else {
+            alert("잘못입력하였습니다");
+        }
+
+
+    </script>
+
+    <!-- <script>
+
+        window.onload = function () {
+
+            function Animal(
+                name,
+                type,
+                age,
+                kg) {
+                this.name = `이름은 ${name}이고`;
+                this.type = `종은 ${type}이고`
+                this.age = `${age}이고`;
+                this.kg = `${kg} 입니다.`;
+
+            };
+
+
+            const dog1 = new Animal("밀크", "푸들", 8, 5);
+            console.log(typeof (dog1));
+        };
+
+
+    </script> -->
+
+
+</body>
+
+</html>

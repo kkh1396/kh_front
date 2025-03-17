@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery - 이벤트 관련 메소드</title>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <style>
+        .area {
+            border: 1px solid skyblue;
+            height: 500px;
+        }
+
+        .qa_box div {
+
+            background-color: tomato; border: 1px solid orangered;
+            width: 300px; height: 30px; line-height: 30px;
+            text-align: center;
+            border-radius: 10px; cursor: pointer;
+        }
+
+        .qa_box p {
+         
+            border: 1px solid greenyellow;
+            width: 300px; height: 100px;
+            border-radius: 10px; margin-top: 5px; padding: 10px;
+            box-sizing: border-box; 
+            display: none;
+        }
+
+    </style>
+</head>
+
+<body>
+
+
+    <h3>이벤트 관련 메소드</h3>
+
+    <!-- .area#area1>h6+div>h6+h5 -->
+    <div class="area" id="area1">
+        <h6>이 곳을 클릭하면 h6 요소가 추가됩니다.</h6>
+        <div>
+            <h6>HI!</h6>
+            <h5>Hello~</h5>
+        </div>
+    </div>
+
+    <script>
+        // onload = function() {} // js
+
+
+        //jQuery
+        // $(function() {})
+        // $(document).ready(function() {})
+
+        $(function () {
+            //  이벤트 메소드 이용 : click
+            // $("#area1 > h6").click(function(){
+            //      $("#area1").append("<h6>태그 클릭 후 추가된 h6요소</h6>");
+            // });
+
+            // * on 메소드 사용
+            // $("#area1 > h6").on("click", function(){
+            //     $("#area1").append("<h6>on 메소드를 통해 추가된 h6요소</h6>")
+            // });
+
+            // => 동적으로 추가된 요소에는 이벤트 적용안됨!
+
+            // * 부모 요소로부터 on 메소드 사용 
+            // $("#area1").on("click", " > h6", function(){
+            //     $("#area1").append("<h6>부모 요소를 통한 이벤트로 추가된 h6요소</h6>")
+            // });
+
+
+        })
+
+
+    </script>
+
+
+    <hr>
+
+    <h3>키보드 관련 이벤트</h3>
+    <pre>
+            - keydown | keypress : 키가 눌려질 때 발생되는 이벤트
+             > keydown : 키보드의 모든 키가 눌려질 때 발생
+             > keypress : 키보드의 펑션키(Fn), 기능키, 한글 제외한 키가 눌려질 때 발생
+
+             - keyup    : 키가 눌려진 후 떼어질 때 발생되는 이벤트
+        </pre>
+
+    <em>150자 내외로 작성하시오.</em>
+    <textarea id="content" style="resize: none;" cols="30" rows="10"></textarea>
+
+    <span id="count">0</span>/150
+
+    <script>
+        $(function () {
+            // #content 요소의 입력된 값의 길이를 
+            //                         #count 요소에 출력
+            $("#content").keydown(function () {
+                console.log($(this).val());
+                const len = $(this).val().length;
+
+                if (len > 150) {
+                    //입력된 값의 길이가 150을 초과한 경우
+                    // alert("더이상 입력할 수 없습니다.")
+
+                    const content = $(this).val().slice(0, 150);
+                    $(this).val(content);
+
+                    len = content.length
+
+                }
+
+                $("#count").text(len)
+            })
+        });
+
+    </script>
+
+    <hr>
+    <h3>* 효과를 주는 메소드</h3>
+    <h4>fadeIn() fadeOut() fadeToggle()</h4>
+    <!-- button#btn*3 -->
+    <button id="btn-fdIn">보기</button>
+    <button id="btn-fdOut">숨기기</button>
+    <button id="btn-fdToggle">토글</button>
+    <br>
+    <img id="img01" src="https://img.freepik.com/premium-photo/fun-party-with-dj_23-2151108189.jpg?w=740" alt="기판" width="200px"
+        height="300px">
+
+    <script>
+        $(function () {
+            //[보기] 버튼 클릭 이벤트
+            $("#btn-fdIn").click(function () {
+                $("#img01").fadeIn();
+            });
+
+            //[숨기기] 버튼 클릭 이벤트
+            $("#btn-fdOut").click(function () {
+                $("#img01").fadeOut();
+
+            });
+
+            //[토글] 버튼 클릭 이벤트
+            $("#btn-fdToggle").click(function () {
+                $("#img01").fadeToggle();
+            });
+        });
+    </script>
+
+    <br><br>
+
+    <h4>slideDown() slideUp() SlideToggole()</h4>
+    <!-- .qa_box>(div+p)*5 -->
+    <div class="qa_box">
+        <div>Q. 반품은 언제 되나요</div>
+        <p>A. 택배사의 사정에 따라 2~3일 소요됩니다.</p>
+
+        <div>Q. 반품은 언제 되나요</div>
+        <p>A. 택배사의 사정에 따라 2~3일 소요됩니다.</p>        
+        
+        <div>Q. 반품은 언제 되나요</div>
+        <p>A. 택배사의 사정에 따라 2~3일 소요됩니다.</p>        
+        
+        <div>Q. 반품은 언제 되나요</div>
+        <p>A. 택배사의 사정에 따라 2~3일 소요됩니다.</p>
+        
+        <div>Q. 판매자와 연락이 되지 않습니다.</div>
+        <p>A. 문의량이 많아 대기가 좀 필요합니다.</p>
+    </div>
+
+    <script>
+        $(function(){
+            $(".qa_box div").click(function( ) {
+                // $(this). : 클릭 이벤트가 발생된 div 요소
+                // $(this).next() : 해당 요소 바로 다음의 요소 ( -> p)
+
+                const $p = $(this).next();
+                // $를 붙이면 jQuery 방식으로 선택된 요소를 의미함!
+
+                if ($p.css("display") == "none") {
+                     // p요소의 display 스타일 속성의 값이 "none"인 경우
+                     $p.slideDown();
+                } else {
+                    $p.slideUp();
+                }
+            })
+        })
+    </script>
+
+
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+
+</html>
