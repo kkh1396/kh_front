@@ -1,0 +1,57 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Operator</title>
+</head>
+<body>
+
+   <h1>EL 연산자</h1>
+   
+   <h3>* 산술 연산</h3>
+    
+   - 기존 : 10000 + 10 = <%= (int)request.getAttribute("big") + (int)request.getAttribute("small") %>
+   
+   <br><br>
+   
+   - EL 방식 : <br>
+   10000 + 10 ${ big + small } <br>
+   10000 - 10 ${ big - small } <br>
+   10000 * 10 ${ big * small } <br>
+   10000 / 10 ${ big / small } 또는 ${ big div small } <br>
+   10000 % 10 ${ big % small } 또는 ${ big mod small } <br>
+   
+   
+   <h3>* 대소비교 연산</h3>
+   
+   10000 &gt; 10 = ${ big > small } 또는 ${ big gt small } <br>
+   10000 &lt; 10 = ${ big < small } 또는 ${ big lt small } <br>
+   10000 &gt;= 10 = ${ big >= small } 또는 ${ big ge small } <br>
+   10000 &lt;= 10 = ${ big <= small } 또는 ${ big le small } <br>
+   
+   <h3>* 동등비교 연산</h3>
+   - s1과 s2의 값이 일치하는 가? ${ s1 == s2 } <br>
+   - s2와 s4의 값이 일치하는 가? ${ s2 == s4 } 또는 ${ s2 eq s4 } <br>
+   
+   <%-- EL에서는 문자열에 대한 동등비교가 자바에서의 equals와 같이 동작됨!  --%>
+   - s2와 s3의 값이 일치하지 않는 가 ? ${ s2 != s3 } 또는 ${ s2 ne s3 } <br>
+   
+   - small에 담긴 값이 10인가? ${ small = 10 } 또는 ${ small eq 10 } <br>
+   
+   - s3에 담긴 값이 '힘내세요!!!'와 일치하는 가? ${ s3 eq '힘내세요!!!' } <br>
+   
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

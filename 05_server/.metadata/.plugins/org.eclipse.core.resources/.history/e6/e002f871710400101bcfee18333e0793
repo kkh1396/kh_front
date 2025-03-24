@@ -1,0 +1,82 @@
+package controller;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class RequestGetServlet
+ */
+@WebServlet("/test.do")
+public class RequestGetServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public RequestGetServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		// response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		
+//		System.out.println("@@@@ GET 요청이 들어옴");
+		
+		/*
+		 *  * 첫번쨰 매개변수 ( HttpServletRequest ) 에는 요청 시 전달된 내용들이 담겨져 있음
+		 *   - 사용자가 입력한 값, 요청방식, 요청자의 ip주소 등등
+		 * 
+		 *  * 두번째 매개변수 ( HttpServletResponse ) 에는 요청에 대한 처리 후 응답할 때 사용할 객체
+		 *  
+		 *  ---------------------------------------------------
+		 *  
+		 *  - 요청시 전달된 데이터 추출 ( request 객체의 parameter 영역 안에 데이터가 담겨져 있음)
+		 *    request.getParameter("키값"):String -> 키값에 해당하는 데이터를 반환
+		 */
+		 String userName = request.getParameter("username"); // 이름(userName)
+		  // input:text --> "입력된 값" 또는 ""
+		  // 성별(gender)
+		 String gender = request.getParameter("gender");
+		 // input:radio --> "선택된값" 또는 null (선택항목이 없을 경우)
+		 // 나이(age)
+		 String age = request.getParameter("age");
+		 // input:number --> "입력된 값" 또는 ""
+		 // 주소(address)
+		 String address = request.getParameter("address");
+		 // select+option --> "선택된 값"
+		 // 키(height)
+		 String height = request.getParameter("height");
+		 // input:range --> "입력된 값"
+		 
+		 System.out.println("이름 : " + userName);
+		 System.out.println("성별 : " + gender);
+		 System.out.println("나이 : " + age);
+		 System.out.println("주소 : " + address);
+		 System.out.println("키 : " + height);
+		 
+		 // "나이" 데이터를 정수형 변수에 저장하고자 한다면 ?
+		 if (!age.isEmpty()) {
+			 int ageNum = Integer.parseInt(age); 
+			 System.out.println("나이 : " + ageNum);
+		 } 
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}

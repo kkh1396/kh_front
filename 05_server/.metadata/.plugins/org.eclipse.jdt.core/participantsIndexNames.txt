@@ -1,0 +1,23 @@
+INDEX VERSION 1.131
+C:\tool\05_server\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\4272544250.index
+\2_jsp\src\main\java
+C:\tool\05_server\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3572436379.index
+\2_jsp\src\main\java
+C:\tool\05_server\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1392134507.index
+\99_practice\src\main\java
+C:\tool\05_server\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1662471037.index
+\2_jsp\src\main\java
+C:\tool\05_server\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\4244768288.index
+\99_practice\src\main\java
+C:\tool\05_server\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\4156358435.index
+\99_practice\src\main\java
+C:\tool\05_server\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2209331829.index
+\2_jsp\src\main\java
+C:\tool\05_server\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2429520412.index
+\92_practices\src\main\java
+C:\tool\05_server\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3968591081.index
+\2_jsp\src\main\java
+C:\tool\05_server\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2972657366.index
+\99_practice\src\main\java
+C:\tool\05_server\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2808511933.index
+\1.servlet\src\main\java

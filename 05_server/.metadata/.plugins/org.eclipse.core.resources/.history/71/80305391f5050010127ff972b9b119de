@@ -1,0 +1,17 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" import=java.util.Date, java.ext.simpleDateFormat" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+		
+	  <%
+	   String year = new SimpleDateFormay("yyyy").format(new Date());
+	  
+	  %>
+	  Copyright &copy; 1988-<%= year %>, KH A classRoom
+</body>
+</html>

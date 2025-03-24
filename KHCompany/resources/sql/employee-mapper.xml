@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+		<entry key="selectEmployeeList">
+		    select emp_id 
+		    , emp_name 
+		    , dept_title
+			, Job_name 
+		    , to_char(hire_date,'YYYY-MM-DD') HIRE_DATE
+			from employee  
+		   		left join department on dept_code = dept_id
+		    	join job using (job_code)
+		    where ent_yn = 'N'
+    		ORDER BY 1 
+		</entry>
+</properties>
