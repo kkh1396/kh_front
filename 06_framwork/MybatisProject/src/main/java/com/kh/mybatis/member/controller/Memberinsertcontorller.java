@@ -55,9 +55,11 @@ public class Memberinsertcontorller extends HttpServlet {
 		   String phone = request.getParameter("phone");
 		   String address = request.getParameter("address");
 		   
-		   System.out.println(String.format("%s,%s,%s,%s,%s,%s,%s,%s"
-				   						, userid, userPwd ,userName, email
-				   						, gender, birthday, phone, address));
+		   	
+//		   
+//		   System.out.println(String.format("%s,%s,%s,%s,%s,%s,%s,%s"
+//				   						, userid, userPwd ,userName, email
+//				   						, gender, birthday, phone, address));
 		   
 		   Member m = new Member(
 				      userid
@@ -76,20 +78,23 @@ public class Memberinsertcontorller extends HttpServlet {
 		// * Service 객체에게 전달된 데이터를 전달 -> 데이터 추가요청
 		  int result = new MemberServiceImpl().insertMember(m);
 		
-		  System.out.println(result);
 		
 		// * 결과에 따라 페이지 구분 
 		  if (result > 0) {  // 회원 가입 성공!! --> 메인페이지 url 재요청
 //			  response.sendRedirect("/mybatis");
+			  
+			  // session 영역에 메시지 저장
+			   request.getSession().setAttribute("alertMsg", "회원가입에 성공했습니다.");
+			   
+			  
 			  response.sendRedirect(request.getContextPath());
-			  System.out.println(request.getContextPath());
 		  } else {			// 회원 가입 실패!!  --> 에러페이지 포워딩
 			  // * request 영역에 에러메시지 저장
 			  	request.setAttribute("errorMsg", "회원가입에 실패했습니다.");
 			  // common/errorPage.jsp 페이지 응답(포워딩)
 			    request.getRequestDispatcher("WEB-INF/-views/common/errorPage.jsp")
 			    		.forward(request, response);
-			  
+			   
 		  }
 		
 	}

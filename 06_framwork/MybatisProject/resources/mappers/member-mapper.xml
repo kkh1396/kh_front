@@ -26,7 +26,7 @@
 				 values  ( seq_uno.nextval 
 				 			, #{userId}
 				 			, #{userPwd}
-				 			, #{userName}
+				 			, #{name}
 				 			, #{email}
 				 			, #{gender}
 				 			, #{birthday}
@@ -34,4 +34,72 @@
 				 			, #{address}				 			
 				 			)		
 	 </insert>
+	 
+	 <!-- 
+	 	resultMap : mybatis 핵심 기능 중 하나
+	 				Resultset으로부터 조회된 컬럼값을 하나씩 뽑아서 
+	 				지정한 vo/dto 객체의 각 필드에 저장.
+	 				코드를 줄여주는 역할. 
+	 <resultMap type="식별자" id="조회결과를 담아 반환하고자 하는 객체의 타입(전체클래스명 별칭)">
+		  	</result column="조회된 컬럼명" property="객체의필드명" />
+		  	</result column="조회된 컬럼명" property="객체의필드명" />
+		  	</result column="조회된 컬럼명" property="객체의필드명" />
+	 </resultMap>
+	 
+	 => 컬럼명 : 대소문자 구분x, 필드명 : 대소문자 구분o
+	 
+	 -->
+	 <resultMap  id="memberResultMap" type="Member">
+	 		<result column="user_id" property="userId"/>
+	 		<result column="user_pwd" property="userPwd"/>
+	 		<result column="user_name" property="name"/>
+	 		<result column="email" property="email"/>
+	 		<result column="gender" property="gender"/>
+	 		<result column="phone" property="phone"/>
+	 		<result column="address" property="address"/>
+	 		<result column="birthday" property="birthday"/>
+	 </resultMap>
+	 
+	 <!-- 
+	 		DQL(select)
+	 		
+	 		<select id="식별자(별칭)"
+	 				resultMap="조회된 결과를 매필할 resultMap의 id값"
+	 				또는 resultType="조회된 결과를 반환하고자 하는 타입"
+	 				[parameterType="전달받을 데이터타입(전체클래스명|별칭)"]
+	 				
+	 				실행할 SQL문 
+	 				
+	 		</select>
+	  -->
+	 
+	 <select id="selectMember" resultMap="memberResultMap" parameterType="Member">
+				select user_id
+					, user_pwd
+					, user_name 
+					, email
+					, gender
+					, phone
+					, address
+					, to_char(TO_Date(birthday, 'RRmmdd'), 'YYYY-MM-DD') birthday 
+				from member
+				where user_id = #{ userId }
+				  and user_pwd = #{ userPwd}
+				  and status = 'Y'	 
+	 </select>
+	 
+
+	 	<update id="updateMember" parameterType="Member">
+				 update member set USER_NAME = #{ name }
+		                  , EMAIL = #{ email }		                  
+		                  , gender = #{ gender }
+		                  , birthday = #{ birthday }
+		                  , phone =  #{ phone }
+		                  , address = #{ address }		                   
+                  	where USER_ID = #{ userId }
+				 
+	 	</update>
+	 
+	 
+	 
 </mapper>

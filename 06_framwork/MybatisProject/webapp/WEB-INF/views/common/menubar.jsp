@@ -40,6 +40,17 @@
 </style>
 </head>
 <body>
+	
+	<%-- alertmsg 키에 데이터가 있을 경우 alert() 를 사용하여 메시지 출력 --%>
+	<c:if test="${ not empty alertMsg }">
+ 			<script>
+ 			    alert("${ alertMsg }");
+ 			</script>
+ 			
+ 		 <c:remove var="alertMsg" /> <%-- scope="session" 생략 가능 --%>
+	</c:if>
+	
+		
 	<h1 align="center">Welcome to MyBatis World!</h1>
 	<br>
 	
@@ -48,7 +59,7 @@
 		<!-- 로그인 전 표시할 부분 -->
 	<c:choose>
 	<c:when test="${ empty loginUser }">
-		<form action="" method="post">
+		<form action="login.me" method="post">
 			<table>
 				<tr>
 					<td>아이디</td>
@@ -76,12 +87,12 @@
 			<table>
 				<tr>
 					<td colspan="2">
-						<h3>@@@님 환영합니다</h3>
+						<h3>${ loginUser.name }님 환영합니다</h3>
 					</td>
 				</tr>
 				<tr>
-					<td><a href="">마이페이지</a></td>
-					<td><a href="">로그아웃</a></td>
+					<td><a href="mypage.me">마이페이지</a></td>
+					<td><a href="logout.me">로그아웃</a></td>
 				</tr>
 			</table>
 		</div>

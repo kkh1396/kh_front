@@ -28,22 +28,32 @@ public class Member {
 
 	
 	
+	public Member(String userId, String name, String email, String gender,String birthday,
+			String phone, String address) {
+		super();
+		this.userId = userId;
+		this.name = name;
+		this.email = email;
+		this.gender = gender;
+		this.birthday = birthday;
+		this.phone = phone;
+		this.address = address;
+	}
 	
-	public Member(String userId, String userPwd, String name, String email, String birthday, String gender,
+	
+	public Member(String userId, String userPwd, String name, String email, String gender,String birthday,
 			String phone, String address) {
 		super();
 		this.userId = userId;
 		this.userPwd = userPwd;
 		this.name = name;
 		this.email = email;
-		this.birthday = birthday;
 		this.gender = gender;
+		this.birthday = birthday;
 		this.phone = phone;
 		this.address = address;
 	}
-
-
-
+	
 
 	public Member(int userNo, String userId, String userPwd, String name, String email, String birthday, String gender,
 			String phone, String address, Date enroll_date, Date modify_date, String status) {

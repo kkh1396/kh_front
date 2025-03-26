@@ -24,7 +24,6 @@ public class MemberServiceImpl implements MemberService {
 		
 		 SqlSession sqlSession = Template.getSqlSession();
 		 int result = mDao.insertMember(sqlSession, m);
-		 System.out.println(result);
 		 if (result >0 ) {
 			 sqlSession.commit();
 		 }
@@ -39,14 +38,38 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public Member selectMember(Member m) {
-		// TODO Auto-generated method stub
-		return null;
+		// * SqlSession 객체 생성
+		
+		 SqlSession sqlSession = Template.getSqlSession();
+		
+		// * Dao 객체에게 작업 요청 후 결과 받기
+		 
+		 Member loginUser = mDao.selectMember(sqlSession, m);		
+		 
+		// * SqlSession 객체 반납 (close)
+		 sqlSession.close();
+		
+		// * 결과 리턴
+
+		return loginUser;
 	}
 
 	@Override
 	public int updateMember(Member m) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		
+		 SqlSession sqlSession = Template.getSqlSession();
+		 int result = mDao.updateMember(sqlSession, m);
+		 if (result >0 ) {
+			 sqlSession.commit();
+		 }
+		 
+		 // rollback의 경우 여러 개의 DML을 실행시켰을 경우만 작성
+		 // 단일 행일 경우 생략 가능 
+		 sqlSession.close();
+		 
+
+		 return result;
 	}
 
 	@Override

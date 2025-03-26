@@ -13,7 +13,7 @@
 
 		<!-- settings : mybatis 구동 시 선언할 설정들을 작성하는 영역 -->
 		 <settings>
-		    <setting name="jdbcTypefornull" value="null" />
+		    <setting name="jdbcTypeForNull" value="NULL" />
 		     <!-- 데이터가 null값으로 전달되었을때, 빈값이 아닌 Null로 설정 -->
 		 </settings>
 		
