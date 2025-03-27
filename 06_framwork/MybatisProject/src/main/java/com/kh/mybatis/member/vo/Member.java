@@ -28,6 +28,7 @@ public class Member {
 
 	
 	
+	// * 회원 정보 수정 시 추가
 	public Member(String userId, String name, String email, String gender,String birthday,
 			String phone, String address) {
 		super();

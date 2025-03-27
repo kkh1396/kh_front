@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -83,12 +85,91 @@
 
 				  <div align="center">
 						<button type="submit" class="btn btn-sm btn-primary">정보 수정</button>
-						<button type="button" class="btn btn-sm btn-secondary">비밀번호 변경</button>
-						<button type="button" class="btn btn-sm btn-danger">회원탈퇴</button>
+						<button type="button" class="btn btn-sm btn-secondary"
+						data-bs-toggle="modal" data-bs-target="#pwdUpdateMemModal"
+						>비밀번호 변경</button>
+						<button type="button" class="btn btn-sm btn-danger" 
+						 data-bs-toggle="modal" data-bs-target="#deleteMemModal"
+						 >회원탈퇴</button>						
 				 </div>
 
 			</form>
 		</div>
+		
+		
+		<!--  비밀번호 변경 모달 -->
+			<div class="modal fade" id="pwdUpdateMemModal" tabindex="-1" aria-labelledby="pwdUpdateMemModal" aria-hidden="true">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h1 class="modal-title fs-5" id="pwdUpdateMemModal">비밀번호 수정</h1>
+			        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			      </div>
+			      
+			      <div class="modal-body">
+			        <form action="updatePwd.me" method="post">
+
+						  <input type="hidden" name="userId" value="${ loginUser.userId }" />
+
+			              <%-- 회원PWD : 입력받기  --%>
+			              <div class="mb-3">
+			                  <label for="password" class="col-form-label">현재 비밀번호 : </label>
+			                  <input type="password" class="form-control"  id="password" name="userPwd" required/>			                  
+			              </div>
+			              
+			               <div class="mb-3">
+			                  <label for="newPwd" class="col-form-label">변경할 비밀번호 : </label>
+			                  <input type="password" class="form-control"  id="newPwd" name="newPwd" required/>			                  
+			              </div>	
+			              
+			              <div class="mb-3">
+			                  <label for="newPwdCheck" class="col-form-label">변경할 비밀번호 확인 : </label>
+			                  <input type="password" class="form-control"  id="newPwdCheck" required/>			                  
+			              </div>			              
+			              
+
+			              <button type="submit" class="btn btn-sm btn-secondary float-end"
+			                       onclick="return pwdCheck();">변경하기</button>
+
+			        </form>
+			      </div>			      
+			  </div>
+			</div>
+			</div>
+		
+		
+		
+		<!--  회원 탈퇴 모달 -->
+			<div class="modal fade" id="deleteMemModal" tabindex="-1" aria-labelledby="deleteMemModalLabel" aria-hidden="true">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h1 class="modal-title fs-5" id="deleteMemModalLabel">회원 탈퇴</h1>
+			        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			      </div>
+			      
+			      <div class="modal-body">
+			        <form action="delete.me" method="post">
+			              <%-- 회원ID : 입력받지 x --%>
+			              <input type="hidden" name="userId" value="${ loginUser.userId }" />
+			              <p>
+			              	   탈퇴 후 복구가 불가능합니다. <br>
+			              	   그래도 탈퇴하시겠습니까?
+			              </p>
+			              <%-- 회원PWD : 입력받기  --%>
+			              <div class="mb-3">
+			                  <label for="password" class="col-form-label">비밀번호 : </label>
+			                  <input type="password" class="form-control"  id="password" name="userPwd" required/>			                  
+			              </div>			              
+			              
+			              <button type="submit" class="btn btn-sm btn-danger float-end">탈퇴하기</button>
+			        </form>
+			      </div>			      
+			  </div>
+			</div>
+		   </div>				
+		
+		
 		
 
 		<script>
@@ -139,6 +220,32 @@
 				// yy,mm,dd를 하나로 합쳐서
 				// name 속성이 birthday인 요소에 값을 저장
 				document.querySelector("#mypage-area input[name=birthday]").value = yy+mm+dd;
+		   }
+		   
+		   function pwdCheck() {
+			    // * {변경할 비밀번호} 값과 {변경할 비밀번호 확인} 값이
+			    //   일치하지 않을 경우 요청하지 않도록 처리
+			    
+			    const newPwd = document.querySelector("#pwdUpdateMemModal #newPwd").value;
+			    const newPwdCheck = document.querySelector("#pwdUpdateMemModal #newPwdCheck").value;
+			    
+			    // * 입력 값이 모두 없을 때 변경 요청하지 않도록 처리
+			    const userPwd = document.querySelector("#pwdUpdateMemModal #password").value;
+			    
+			    <!-- 
+			    if ( newPwd == "" || newPwdCheck == "" || userPwd == "" ) {
+			    	 alert("입력되지 않은 값이 있습니다. 확인해주세요");
+			    	 return false;
+			    }
+			    -->
+			    
+			    	
+
+			    if ( newPwd != newPwdCheck ) {
+			    	 alert("변경할 비밀번호 값이 다릅니다. 다시 확인해주세요");
+			    	 return false;
+			    	
+			    }
 		   }
 		   
 		</script>

@@ -89,17 +89,36 @@
 	 </select>
 	 
 
-	 	<update id="updateMember" parameterType="Member">
+	 <update id="updateMember" >
 				 update member set USER_NAME = #{ name }
 		                  , EMAIL = #{ email }		                  
 		                  , gender = #{ gender }
 		                  , birthday = #{ birthday }
 		                  , phone =  #{ phone }
-		                  , address = #{ address }		                   
-                  	where USER_ID = #{ userId }
-				 
-	 	</update>
+		                  , address = #{ address }	
+		                  , modify_date = sysdate	                   
+                  	where USER_ID = #{ userId }				 
+	 </update>
 	 
+	 
+	 <update id="deleteMember" >
+				 update member 
+				 		set status = 'N'	
+				 		 , modify_date = sysdate		                                    
+                  		where USER_ID = #{ userId }		
+                  		    <!-- map 형태 일때는  -->
+                  		     and user_pwd = #{userPwd}		 
+	 </update>
+	 
+	 
+	 <!-- hashmap 사용해서 작성중 -->
+	 <update id="updatePassword" >
+				 update member 
+				 		set USER_PWD = #{ newPwd }	
+				 			, modify_date = sysdate		                                    
+                  		where USER_ID = #{ id }	
+                  			  and user_pwd = #{userPwd}	 
+	 </update>
 	 
 	 
 </mapper>
