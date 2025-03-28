@@ -1,26 +1,24 @@
-package com.kh.mybatis.member.controller;
+package controller;
+
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.mybatis.member.service.MemberServiceImpl;
-
 /**
- * Servlet implementation class IdCheck
+ * Servlet implementation class Ajax_test
  */
-@WebServlet("/idCheck")
-public class IdCheck extends HttpServlet {
+@WebServlet("/jqAjax1.do")
+public class AjaxController1 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public IdCheck() {
+    public AjaxController1() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,20 +27,17 @@ public class IdCheck extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// * 전달된 데이터 추출		
-		String userId = (String)request.getParameter("userId");
+		// * 데이터 추출
+		String data = request.getParameter("data");
 		
-		// * Service 객체에게 전달하여 작업 요청
-		int count = new MemberServiceImpl().countMemberByUserId(userId);
+		// * 결과 데이터 가공
+		String result = "전달된 값: " + data + ", 길이: " + data.length();
 		
-		// * 결과에 따른 처리
-		if (count == 0) {
-			//    count == 0) "YYY" 값을 응답			
-			response.getWriter().print("YYY");
-		} else {
-			//    count != 0) "NNN' 값을 응답
-			response.getWriter().print("NNN");			
-		}
+		// * 데이터로 응답
+		response.setContentType("text/html; charset=utf-8");
+		// => 문서 형식(결과 데이터 형식), 인코딩 설정 
+		
+		response.getWriter().print(result);
 	}
 
 	/**

@@ -1,6 +1,7 @@
-package com.kh.mybatis.member.controller;
+package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,19 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.mybatis.member.service.MemberServiceImpl;
+import com.google.gson.Gson;
+
+import model.vo.Member;
 
 /**
- * Servlet implementation class IdCheck
+ * Servlet implementation class AjaxController4
  */
-@WebServlet("/idCheck")
-public class IdCheck extends HttpServlet {
+@WebServlet("/jqAjax4.do")
+public class AjaxController4 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public IdCheck() {
+    public AjaxController4() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,20 +32,21 @@ public class IdCheck extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// * 전달된 데이터 추출		
-		String userId = (String)request.getParameter("userId");
+		// 객체 3개 만들기
 		
-		// * Service 객체에게 전달하여 작업 요청
-		int count = new MemberServiceImpl().countMemberByUserId(userId);
-		
-		// * 결과에 따른 처리
-		if (count == 0) {
-			//    count == 0) "YYY" 값을 응답			
-			response.getWriter().print("YYY");
-		} else {
-			//    count != 0) "NNN' 값을 응답
-			response.getWriter().print("NNN");			
-		}
+		 ArrayList list = new ArrayList<>();
+		 Member m = null;
+		 list.add(new Member(1,"k1","k","k1"));
+		 list.add(new Member(2,"k2","k","k2"));
+		 list.add(new Member(3,"k3","k","k3"));
+		 
+		 // GSON 객체 생성
+		 Gson gson = new Gson();
+		 
+		 response.setContentType("application/json; charset=UTF-8");
+		 gson.toJson(list, response.getWriter());
+			
+
 	}
 
 	/**

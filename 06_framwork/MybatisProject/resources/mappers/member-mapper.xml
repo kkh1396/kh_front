@@ -89,6 +89,14 @@
 	 </select>
 	 
 
+	<select id="countMemberByUserId" resultType="_int">
+	        select count(*) 
+	           from member
+	             where user_id = #{userId}
+	                 and status = 'Y'
+	        
+	</select>
+
 	 <update id="updateMember" >
 				 update member set USER_NAME = #{ name }
 		                  , EMAIL = #{ email }		                  

@@ -105,8 +105,8 @@
 				 </table>
 				 <br><br>
 
-				  <div align="center">
-					<button class="btn btn-primary" type="submit"   >회원가입</button>
+				  <div align="center">					
+					<button class="btn btn-primary" type="submit" onclick="return invalidCheck(); " disabled> 회원가입</button>
 					<button class="btn btn-danger" type="reset">초기화</button>
 				 </div>
 
@@ -221,12 +221,30 @@
 					 } ,
 					 type: 'get',	// 생략 가능!
 					 
-					 success: function() {
+					 success: function(result) {
 						 // 요청 성공 시
+						 alert(result);
+						 
+						 // 결과(result)가 사용가능할 때 ('YYY')
+						 //     [회원가입]을 활성화 --> disabled 제거
+						 if (result == 'YYY') {
+							 alert("사용 가능한 아이디입니다.");
+							 $("#mem-enroll-area button[type=submit]").removeAttr("disabled");
+							 
+							 // * 아이디 입력 요소 읽기전용으로 변경
+							 $("#mem-enroll-area input[name=userId]").attr("readonly", true);
+						 } else {
+						     alert("이미 사용중인 아이디입니다.");
+						 // 결과(result)가 사용 불가능일 떄 ('NNN')
+						 //		"이미 사용중인 아이디입니다." 메시지 출력
+						 //     [회원가입] 그대로 비활성 유지
+						 }
 					 } ,
 					 
-					 error: function(){
+					 error: function(err){
 						// 요청 실패 시
+						console.log("*---중복 체크 실패---*");
+						console.log(err);
 					 }
 				 });
 			}
