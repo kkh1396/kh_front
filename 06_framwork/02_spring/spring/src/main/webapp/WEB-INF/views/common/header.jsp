@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.kh.spring.model.vo.Member" %>
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
@@ -19,21 +20,30 @@
     </style>
 </head>
 <body>
+	<%
+		String alertMsg = (String)session.getAttribute("alertMsg");
+		Member loginUser = (Member)session.getAttribute("loginUser");
+	%>
     <div id="top-area">
         <img src="https://khedu.co.kr/resources/images/main/logo.svg" alt="kh_logo" width="150" />
         <div></div>
+        
         <!-- 로그인 전 보여질 화면 -->
+        <% if (loginUser == null) {%>
         <div>
             <a href="member/enrollForm">회원가입</a> &nbsp;|&nbsp;
             <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal">로그인</a>
-        </div>
-
+        </div>        
+        <% }else { %>
         <!-- 로그인 후 보여질 화면 -->
-        <!-- <div>
-            <label>홍길동님 환영합니다.</label> &nbsp;&nbsp;
-            <a href="">마이페이지</a>
-            <a href="">로그아웃</a>        
-        </div> -->
+         <div>
+            <label>${ loginUser.userName }님 환영합니다.</label> &nbsp;&nbsp;
+            <%-- loginUser.getUserName()  --%>
+            <a href="/member/myPage">마이페이지</a>
+            <a href="/member/logout">로그아웃</a>        
+        </div> 
+        <%} %>
+        
     </div>
     <hr>
     <nav class="container text-center">
@@ -52,15 +62,17 @@
               <h1 class="modal-title fs-5">LOGIN</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form>
+            <form action="/member/login" method="post">
                 <div class="modal-body">
                     <div class="mb-3">
                     <label for="userId" class="col-form-label">ID:</label>
-                    <input type="text" class="form-control" placeholder="Enter ID.." id="userId" />
+                    <input type="text" class="form-control" placeholder="Enter ID.." id="userId" 
+                            name="userId"/>
                     </div>
                     <div class="mb-3">
                     <label for="userPwd" class="col-form-label">PASSWORD:</label>
-                    <input type="password" class="form-control" placeholder="Enter Password.." id="userPwd" />
+                    <input type="password" class="form-control" placeholder="Enter Password.." id="userPwd" 
+                    	name="userPwd"/>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -72,6 +84,11 @@
         </div>
       </div>
       <script>
+      	<% if (alertMsg != null ) {%>
+      		  alert("<%= alertMsg %>")
+      		  
+      		  <% session.removeAttribute("alertMsg"); %>
+      	<% } %>
         window.onload = () => {            
             const menuList = document.querySelectorAll("nav div");
             showMenu(menuList);

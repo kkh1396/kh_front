@@ -96,6 +96,25 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
+		
+		<!-- mybatis 관련 의존성 -->
+		<!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
+		<dependency>
+		    <groupId>org.mybatis.spring.boot</groupId>
+		    <artifactId>mybatis-spring-boot-starter</artifactId>
+		    <version>3.0.3</version>
+		</dependency>
+		
+		<!-- security 관련 의존성 -->
+		<!-- 비밀번호 암호화를 위해 추가 -->
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-security</artifactId>
+		    <version>3.4.2</version>
+		</dependency>
+		
 	</dependencies>
 
 	<!-- ** 빌드 설정 부분 ** -->

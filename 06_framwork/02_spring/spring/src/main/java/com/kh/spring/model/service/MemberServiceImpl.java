@@ -31,20 +31,20 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Override
 	public int insertMember(Member m) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return mDao.insertMember(m);
 	}
 
 	@Override
 	public Member loginMember(Member m) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return mDao.loginMember(m);
 	}
 
 	@Override
-	public Member updateMember(Member m) {
-		// TODO Auto-generated method stub
-		return null;
+	public int updateMember(Member m) {
+		
+		return mDao.updateMember(m);
 	}
 
 	@Override

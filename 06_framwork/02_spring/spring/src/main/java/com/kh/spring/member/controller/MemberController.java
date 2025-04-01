@@ -1,13 +1,17 @@
 package com.kh.spring.member.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.spring.model.service.MemberService;
 import com.kh.spring.model.vo.Member;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller	// Controller 어노테이션 추가 시 빈 스캐닝을 통해 자동으로 빈 등록
 @RequestMapping("/member") // 공통 주소 설정 => 해당 클래스에서 받는 요청은 /member 로 시작될 것임!
@@ -50,10 +54,14 @@ public class MemberController {
 	
 	/* 생성자 주입 방식 */
 	private final MemberService mService;
+	private final BCryptPasswordEncoder bCryptPasswordEncoder;
+	
 	
 	@Autowired
-	public MemberController(MemberService mService) {
+	public MemberController(MemberService mService
+							, BCryptPasswordEncoder bCryptPasswordEncoder) {
 		this.mService= mService;
+		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
 	
 	
@@ -140,11 +148,145 @@ public class MemberController {
 	 */
 	
 	@PostMapping("/regist") 
-	public String reistMember(Member user) {
+	public String reistMember(Member user ,
+								HttpSession session,
+								Model model) {
 		System.out.println(user);
 		
-		return "member/enrollForm";
+		// --> 처리전 : 비밀번호 평문(입력한 값 그대로)
+		// 비밀번호 암호화 처리 => BCryptPasswordencoder
+		String encPwd = bCryptPasswordEncoder.encode(user.getUserPwd());
+		user.setUserPwd(encPwd);
+		
+		
+		// --> 처리후 : 비밀번호 암호문(암호화 처리된 값)
+		// 서비스에게 Member 객체를 전달하여 회원가입 요청
+
+		
+		// 서비스에게 Member 객체를 전달하여 회원가입 요청
+		int result = mService.insertMember(user);
+		
+		// 결과에 따른 처리
+		if (result > 0) {	// 회원 가입 성공
+			// "회원가입에 성공했습니다. 환영합니다. 메시지 저장
+			 session.setAttribute("alertMsg", "회원가입에 성공했습니다. 환영합니다.");
+			// 메인페이지 url 재요청 
+			return "redirect:/";
+		}else {				// 회원 가입 실패 
+			// "회원가입에 실패했습니다." 메시지 저장
+			//  --> request 영역에 저장 => Model 객체
+			model.addAttribute("errorMsg","회원가입에 실패했습니다.");
+			// 에러페이지 응답
+//			 return "/WEB-INF/views/common/errorPage.jsp";
+			return "common/errorPage";
+			
+		}
 	}
+	
+	/*
+	 *  로그인 요청 
+	 */
+	@PostMapping("/login") // /member/login 요청 받을 것임!
+	public String login(Member user    // @Modelattribute Member user와 같이 작성할 수 있음!
+						, HttpSession session, Model model) {
+		
+		System.out.println(user);
+		
+		Member loginUser = mService.loginMember(user);
+		
+		/*
+		 *  user => 사용자가 입력한 값을 저장 (요청 시 전달된 데이터), 비밀번호: 평문 
+		 *  loginUser => DB에서 아이디 기준으로 조회한 데이터, 비밀번호: 암호문 
+		 */
+		
+		
+		if (loginUser == null) {
+			model.addAttribute("errorMsg", "아이디에 해당하는 회원정보가 없습니다.");
+			
+			return "common/errorPage";
+		} else if (!bCryptPasswordEncoder.matches(user.getUserPwd(), 
+												loginUser.getUserPwd())) {
+			// 입력된 비밀번호값이 저장된 비밀번호에 해당하지 않는 경우	
+			model.addAttribute("errorMsg", "비밀번호가 잘못 입력되었습니다.");
+			return "common/errorPage";
+		} else {
+			// 로그인 성공
+			session.setAttribute("alertMsg", "로그인 성공");
+			session.setAttribute("loginUser", loginUser);
+			return "redirect:/";
+		}
+		
+		/*
+		if (loginUser != null) { // 로그인 성공
+			// "로그인 성공했습니다." 메시지 저장
+			session.setAttribute("alertMsg", "로그인 성공했습니다.");
+			
+			// 로그인 정보 저장
+//			session.setAttribute("loginUser", loginUser);
+			session.setAttribute("loginUser", loginUser);
+			// 메인페이지로 url 재요청 
+			return "redirect:/";
+		} else {				 // 로그인 실패
+			// "로그인 실패했습니다." 메시지 저장
+			//				--> 데이터를 저장한다면 :request"영역에 저장!
+			model.addAttribute("errorMsg", "로그인에 실패해습니다.");
+			// 에러페이지로 응답(포워딩)
+
+			return "common/errorPage";
+		}
+		*/
+		
+	}
+	
+	/*
+	 *  로그아웃
+	 */
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		// 세션영역 비우기 
+		session.invalidate();
+		
+//		session.removeAttribute("loginUser");
+				
+		return "redirect:/";
+	}
+	
+	@GetMapping("/myPage")
+	public String myPage(Member user, HttpSession session) {
+		
+//		Member loginUser = mService.loginMember(user);
+		
+//		session.setAttribute("loginUser", loginUser);
+		
+		
+		return "common/myPage";
+	}
+	
+	@PostMapping("/upDate")
+	public String upDate(Member user, HttpSession session, Model model) {
+		
+		// 서비스에게 Member 객체를 전달하여 회원정보 수정
+		int result = mService.updateMember(user);
+		
+		
+		// 결과에 따른 처리
+		if (result > 0) {	// 회원 가입 성공
+			// "회원 정보 수정에 성공했습니다. 메시지 저장
+			 session.setAttribute("alertMsg", "회원 정보 수정에 성공했습니다.");
+			// 메인페이지 url 재요청 
+			return "redirect:/";
+		}else {				// 회원 가입 실패 
+			// "회원 정보 수정에 실패했습니다" 메시지 저장
+			//  --> request 영역에 저장 => Model 객체
+			model.addAttribute("errorMsg","회원 정보 수정에 실패했습니다.");
+			// 에러페이지 응답
+//			 return "/WEB-INF/views/common/errorPage.jsp";
+			return "common/errorPage";
+			
+		}
+	}
+	
+	
 }
 
 
