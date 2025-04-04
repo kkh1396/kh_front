@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="noticeMapper">
+
+  <select id="selectNoticeList" resultType="Notice">
+  	    select notice_no
+		    , notice_title
+		    , notice_writer
+		    , create_date
+		from notice
+		where 1=1
+		  <if test="keyword != null">
+		  	 And notice_title like '%' || #{keyword} || '%'
+		  </if>
+		   order by notice_no desc
+  </select>
+  
+  
+  
+  <select id="selectNoticeDetail" resultType="Notice">
+  		select 	  notice_no
+	  			, notice_title
+	    		, notice_content
+	    		, notice_writer
+	    		, create_date
+    	from notice
+    		where notice_no = #{ noticeNo }		   
+  </select>
+  
+  <select id="selectNoticeCount" resultType="_int">
+   		select count(*) from notice
+   			where 1=1
+   			 <if test="keyword != null">
+		  	 And notice_title like '%' || #{keyword} || '%'
+		  </if>
+  </select>
+  
+  <select id="serachNotice" resultType="Notice">
+  
+  
+  </select>
+  
+  
+  <insert id="insertNotice">
+           insert into notice
+				values(seq_nno.nextval
+				      , #{ noticeTitle }
+				      , #{ noticeWriter }
+				      , #{ noticeContent }
+				      , default )
+  </insert>
+  
+    <update id="updateNotice">
+           update notice set 
+                		notice_title =  #{ noticeTitle }
+             			,notice_content = #{ noticeContent }
+            where NOTICE_no = #{ noticeNo }
+          				
+          
+          
+  </update>
+  
+      <delete id="deleteNotice">
+           delete from notice 
+           		where notice_no = #{noticeNo}  
+  	</delete>
+  
+</mapper>

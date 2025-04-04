@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.kh.spring.model.vo.Member" %>
+<%@ page import="com.kh.spring.member.model.vo.Member" %>
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
@@ -31,7 +31,7 @@
         <!-- 로그인 전 보여질 화면 -->
         <% if (loginUser == null) {%>
         <div>
-            <a href="member/enrollForm">회원가입</a> &nbsp;|&nbsp;
+            <a href="/member/enrollForm">회원가입</a> &nbsp;|&nbsp;
             <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal">로그인</a>
         </div>        
         <% }else { %>
@@ -48,12 +48,13 @@
     <hr>
     <nav class="container text-center">
         <div class="row">
-            <div class="active col-3">HOME</div>
-            <div class="col">공지사항</div>
-            <div class="col">자유게시판</div>
-            <div class="col">사진게시판</div>
+            <div class="active col-3" data-url="">HOME</div>
+            <div class="col" data-url="notice">공지사항</div>
+            <div class="col" data-url="board">자유게시판</div>
+            <div class="col" data-url="picture">사진게시판</div>
         </div>
     </nav>
+
     <!-- 로그인 모달 -->
     <div class="modal fade" id="loginModal">
         <div class="modal-dialog">
@@ -89,8 +90,9 @@
       		  
       		  <% session.removeAttribute("alertMsg"); %>
       	<% } %>
+
         window.onload = () => {            
-            const menuList = document.querySelectorAll("nav div");
+            const menuList = document.querySelectorAll("nav div[data-url]");
             showMenu(menuList);
             addMenuClickEvent(menuList);
             
@@ -105,9 +107,21 @@
                 menu.addEventListener('click', (ev)=>{   
                 	sessionStorage.setItem("menu", ev.target.innerText);
                 	showMenu(list);
+
+                    // 메뉴 클릭 시 페이지 이동 요청 (특정 페이지 요청 )
+                    // html5 에서 지원. 사용자 정의 데이터 속성 : data-*
+                    // console.log(ev.target.getAttribute("data-url"));
+                    let requestUrl = "/" + ev.target.getAttribute("data-url");
+                    if (requestUrl != "/") {
+                        requestUrl += "/list";
+                    }
+
+                    location.href = requestUrl;
+
                 });
             });
         }
+        
         const showMenu = (list) => {
         	const selMenu = sessionStorage.getItem("menu");
         	if (selMenu) {

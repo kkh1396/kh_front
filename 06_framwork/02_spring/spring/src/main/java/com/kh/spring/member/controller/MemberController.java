@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.kh.spring.model.service.MemberService;
-import com.kh.spring.model.vo.Member;
+import com.kh.spring.member.model.service.MemberService;
+import com.kh.spring.member.model.vo.Member;
 
 import jakarta.servlet.http.HttpSession;
 
-@Controller	// Controller 어노테이션 추가 시 빈 스캐닝을 통해 자동으로 빈 등록
+@Controller	
 @RequestMapping("/member") // 공통 주소 설정 => 해당 클래스에서 받는 요청은 /member 로 시작될 것임!
 public class MemberController {
 
@@ -190,7 +190,6 @@ public class MemberController {
 	public String login(Member user    // @Modelattribute Member user와 같이 작성할 수 있음!
 						, HttpSession session, Model model) {
 		
-		System.out.println(user);
 		
 		Member loginUser = mService.loginMember(user);
 		
@@ -259,7 +258,7 @@ public class MemberController {
 //		session.setAttribute("loginUser", loginUser);
 		
 		
-		return "common/myPage";
+		return "member/myPage";
 	}
 	
 	@PostMapping("/upDate")
