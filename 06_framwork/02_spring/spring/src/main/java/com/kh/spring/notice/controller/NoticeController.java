@@ -41,11 +41,11 @@ public class NoticeController {
 
 	@GetMapping("/list")
 	public ModelAndView noticeList(@RequestParam(value="cpage", defaultValue = "1") int currPage
-							, ModelAndView mv) {
+							, ModelAndView mv, String keyword) {
 		
 		// * 페이징 처리를 위한 추가 작업 *
 		// [1] 전체 게시글 수 조회
-			int listCount = nService.selectNoticeCount();
+			int listCount = nService.selectselectByNoticeTitleCount(keyword);
 			
 		// [2] 현재 페이지 번호 --> 요청 시 전달되어야 하는 값
 			
@@ -62,7 +62,8 @@ public class NoticeController {
 		
 		
 		// 응답 전 DB에서 공지사항 목록 조회
-		ArrayList<Notice> list = nService.selectNoticeList(pi);
+//		ArrayList<Notice> list = nService.selectNoticeList(pi);
+		ArrayList<Notice> list = nService.searchNoticeByTitle(keyword, pi);
 		
 		// request 영역에 조회된 목록을 저장 => model
 		
@@ -70,6 +71,9 @@ public class NoticeController {
 		// - Model : 데이터를 key-value 형태로 저장할 수 있는 공간 (단독 사용)
 		// - View : 응답 페이지에 대한 정보를 저장할 수 있는 공간 (단독 사용불가 => ModelAndView사용)
 		mv.addObject("list", list);
+		
+		// * 검색 키워드를(keyword)를 request 영역에 저장 
+		mv.addObject("keyword", keyword);
 		
 		
 		// 공지사항 목록 페이지 응답
