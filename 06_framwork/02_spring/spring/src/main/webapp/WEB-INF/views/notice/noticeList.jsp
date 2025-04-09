@@ -173,7 +173,7 @@
 	    			
 	    				const keyword = "${keyword}";
 	    				
-	    				let requestUrl = "/notice/list?cpage=" + ele.getAttribute("data-curr");
+	    				let requestUrl = "/mypage/purchase-history?cpage=" + ele.getAttribute("data-curr");
 	    				
 	    				if (keyword != "") {
 	    					requestUrl += "&keyword=" + keyword;

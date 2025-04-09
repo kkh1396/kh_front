@@ -2,12 +2,15 @@ package com.kh.spring.board.service;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.spring.board.dao.BoardDao;
+import com.kh.spring.board.dto.SearchDto;
 import com.kh.spring.board.model.vo.Board;
 import com.kh.spring.board.model.vo.Reply;
+import com.kh.spring.common.PageInfo;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -25,13 +28,25 @@ public class BoardServiceImpl implements BoardService {
 		this.boardDao = boardDao;
 	}
 	
+	/**
+	 * 게시글 개수 조회
+	 */
+	@Override
+	public int selectBoardCount(SearchDto searchDto) {
+		return boardDao.selectBoardCount(searchDto);
+	}
+	
+	
 	/*
 	 *  게시글 목록 조회
 	 */
 	@Override
-	public ArrayList<Board> selectBoardList() {
-		return boardDao.selectBoardList();
+	public ArrayList<Board> selectBoardList(PageInfo pi, SearchDto searchDto) {
+		// RowBounds 객체 => MyBatis 프레임워크에서 제공하는 객체
+		int offset = (pi.getCurrPage() - 1) * pi.getBoardLimit();
+		RowBounds rb = new RowBounds(offset, pi.getBoardLimit());
 		
+		return boardDao.selectBoardList(rb, searchDto);
 	}
 
 	@Override

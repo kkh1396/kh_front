@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%@ page import="java.util.ArrayList, com.kh.spring.board.model.vo.Board" %>    
+<%@ page import="java.util.ArrayList
+				,com.kh.spring.board.model.vo.Board
+				,com.kh.spring.common.PageInfo" %>    
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -93,15 +95,40 @@
             </table>
             <br>
 
-            <div id="pagingArea">
+		<%
+				PageInfo pi = (PageInfo)request.getAttribute("pi");
+			    int currPage = 0, startPage = 0, endPage = 0, maxPage = 0;
+			    if (pi != null) {
+			    	currPage = pi.getCurrPage();
+			    	startPage = pi.getStartPage();
+			    	endPage = pi.getEndPage();
+			    	maxPage = pi.getMaxPage();
+			    }
+			%>
+               <div id="pagingArea">
                 <ul class="pagination">
-                    <li class="page-item"><a href="" class="page-link">Prev</a></li>
-                    <li class="page-item"><a href="" class="page-link">1</a></li>
-                    <li class="page-item"><a href="" class="page-link">2</a></li>
-                    <li class="page-item"><a href="" class="page-link">3</a></li>
-                    <li class="page-item"><a href="" class="page-link">4</a></li>
-                    <li class="page-item"><a href="" class="page-link">5</a></li>
-                    <li class="page-item"><a href="" class="page-link">Next</a></li>
+                
+                    <li class="page-item">
+                	<% if (currPage == 1) { %>
+                		<a class="page-link disabled">Prev</a>
+                	<% } else { %>
+                    	<a href="/board/list?cpage=<%= currPage-1 %>" class="page-link">Prev</a>
+                   	<% } %>
+                    </li>
+                    
+                    <% for(int n=startPage; n<=endPage; n++) { %>
+                    	<li class="page-item <% if (currPage == n) { %>active<% } %>">
+                    		<a href="/board/list?cpage=<%= n %>" class="page-link"><%= n %></a>
+                    	</li>
+                    <% } %>
+                    
+                    <li class="page-item">
+                    <% if (currPage == maxPage) { %>
+                    	<a class="page-link disabled">Next</a>
+                    <% } else {%>
+                    	<a href="/board/list?cpage=<%= currPage+1 %>" class="page-link">Next</a>
+                    <% } %>
+                    </li>
                 </ul>
             </div>
 
@@ -116,7 +143,7 @@
                     </select>
                 </div>
                 <div class="text">
-                    <input type="text" class="form-control" name="keyword">
+                    <input type="text" class="form-control" name="keyword" value="${ keyword }">
                 </div>
                 <button class="searchBtn btn btn-secondary">검색</button>
             </form>
@@ -126,5 +153,31 @@
 
     <%-- footer --%>
     <jsp:include page="../common/footer.jsp" />
+    
+    
+    
+    <script>
+    	
+    	 window.addEventListener('load', function() {
+    	
+    	/* 페이징바 클릭 이벤트 추가 */
+    
+    	const pageLink = document.querySelectorAll("#pagingArea a[data-curr]"); //
+    	    for (const ele of pageLink) {
+    	    ele.onclick = function() {
+    	   		// * 키워드, 검색조건 --> request 영역에서 가져오거나, 해당 요소에 접근해서 가져오기!
+    	   		  const keyword = "${keyword}" 
+    	    
+    	    	  let requestUrl = "/board/list?cpage=" + ele.getAttribute("data-curr");
+    	    	  if (keyword != ""){ //검색 정보가 있을 경우
+    	    	     requestUrl += "&keyword="+ keyword
+    	    	     		  +
+    	    
+    	   }
+    	  }
+    	})
+    </script>
+    
+    
 </body>
 </html>

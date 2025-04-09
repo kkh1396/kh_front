@@ -45,7 +45,7 @@ public class NoticeController {
 		
 		// * 페이징 처리를 위한 추가 작업 *
 		// [1] 전체 게시글 수 조회
-			int listCount = nService.selectselectByNoticeTitleCount(keyword);
+			int listCount = nService.selectByNoticeTitleCount(keyword);
 			
 		// [2] 현재 페이지 번호 --> 요청 시 전달되어야 하는 값
 			
@@ -223,7 +223,7 @@ public class NoticeController {
 						, Model model) {
 		
 		// * PageInfo 객체 생성
-		int listCount = nService.selectselectByNoticeTitleCount(keyword);
+		int listCount = nService.selectByNoticeTitleCount(keyword);
 		int pageLimit = 10;
 		int boardLimit = 10;
 		
