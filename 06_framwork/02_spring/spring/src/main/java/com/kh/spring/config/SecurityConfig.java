@@ -7,6 +7,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.firewall.HttpFirewall;
+import org.springframework.security.web.firewall.StrictHttpFirewall;
 
 @Configuration		// 설정 클래스 정의 시 사용되는 어노테이션
 @EnableWebSecurity	// spring security 활성화 어노테이션 
@@ -35,5 +37,7 @@ public class SecurityConfig {
 			.csrf(AbstractHttpConfigurer::disable); // Cross-Site Request Forgery 비활성화
 		return http.build();
 	}
+	
+
 	
 }

@@ -14,7 +14,11 @@ public class WebConfig implements WebMvcConfigurer {
 		// 인터셉터 등록 
 		// * LoginInterceptor 
 		registry.addInterceptor(new LoginInterceptor())
-					.addPathPatterns("/member/mypage");
+					 // .addPathPatterns("/member/mypage", "/board/enrollForm");
+						.addPathPatterns("/member/mypage", "/notice/**"
+											,"/board/**")    // 로그인을 안하면 접근을 막는 페이지 목록들
+						.excludePathPatterns("/notice/list" , "/board/list");   // 위 막는 페이지들중 예외처리하여 접근 가능하도록 하는것
+						
 	}
 	
 	

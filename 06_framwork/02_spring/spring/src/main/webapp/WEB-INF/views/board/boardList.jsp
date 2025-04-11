@@ -52,7 +52,7 @@
 
 
             <%-- 로그인 시에만 글쓰기 버튼 표시 --%>
-            <a href="" class="btn btn-secondary" style="float:right">글쓰기</a>
+            <a href="enrollForm" class="btn btn-secondary" style="float:right">글쓰기</a>
             <br>
 
             
@@ -76,6 +76,7 @@
                 	%>
                 	<%-- 조회된 목록 표시 --%>
                 	<% for (Board b : list) { %>
+                	
                     <tr>
                         <td><%= b.getBoardNo() %></td>
                         <td><%= b.getBoardTitle() %></td>
@@ -112,13 +113,13 @@
                 	<% if (currPage == 1) { %>
                 		<a class="page-link disabled">Prev</a>
                 	<% } else { %>
-                    	<a href="/board/list?cpage=<%= currPage-1 %>" class="page-link">Prev</a>
+                    	<a data-curr="<%= currPage-1 %>" class="page-link">Prev</a>
                    	<% } %>
                     </li>
                     
                     <% for(int n=startPage; n<=endPage; n++) { %>
                     	<li class="page-item <% if (currPage == n) { %>active<% } %>">
-                    		<a href="/board/list?cpage=<%= n %>" class="page-link"><%= n %></a>
+                    		<a data-curr="<%= n %>" class="page-link"><%= n %></a>
                     	</li>
                     <% } %>
                     
@@ -126,7 +127,7 @@
                     <% if (currPage == maxPage) { %>
                     	<a class="page-link disabled">Next</a>
                     <% } else {%>
-                    	<a href="/board/list?cpage=<%= currPage+1 %>" class="page-link">Next</a>
+                    	<a data-curr="<%= currPage+1 %>" class="page-link">Next</a>
                     <% } %>
                     </li>
                 </ul>
@@ -134,7 +135,7 @@
 
             <br clear="both">
 
-            <form action="" id="searchForm">
+            <form action="/board/list" id="searchForm">
                 <div class="select">
                     <select name="condition" id="" class="custom-select form-select">
                         <option value="writer">작성자</option>
@@ -157,25 +158,56 @@
     
     
     <script>
-    	
+    	   
+    	   
     	 window.addEventListener('load', function() {
+    		/* 검색 조건(select) 초기화 */
+    		const condition = "${ condition }";
+    		 //console.log("condition::" + condition);
+    		
+    		if (condition != "") {
+    			const options = document.querySelectorAll("#searchForm select[name=condition] option");
+    			for(const ele of options) {
+    				// console.log("option.value::" + ele.value);
+    				if (condition == ele.value) {
+    					ele.setAttribute("selected", true);
+    					break;
+    				}
+    			}
+    		}
+    		
+    		
+    		/* 페이징바 클릭 이벤트 추가 */
+    		const pageLink = document.querySelectorAll("#pagingArea a[data-curr]"); // [ele, ele, ..]
+    		for(const ele of pageLink) {
+    			ele.onclick = function() {
+    				// * 키워드, 검색 조건 --> request 영역에서 가져오거나, 해당 요소에 접근해서 가져오기!
+    				const keyword = "${ keyword }";
+    				
+    				let requestUrl = "/board/list?cpage=" + ele.getAttribute("data-curr");
+    				if (keyword != "") {	// 검색 정보가 있을 경우
+    					requestUrl += "&keyword=" + keyword
+    					              + "&condition=" + document.querySelector("select[name=condition]").value;    					              
+    				}
+    				
+    				ele.href = requestUrl;
+    			}
+    		}
+    		
+    		
+    		/* 게시글 상세페이지로 이동 */
+            const boardTr = document.querySelectorAll("#boardList tbody tr")
+	
+	            for(const ele of boardTr){
+	                ele.onclick = function() {
+	                
+	                	console.log("/board/detail?bno="+ ele.children[0].innerText);
+	                    location.href = "/board/detail?bno="+ ele.children[0].innerText;
+	                    
+	                }
+	            }
+    	});
     	
-    	/* 페이징바 클릭 이벤트 추가 */
-    
-    	const pageLink = document.querySelectorAll("#pagingArea a[data-curr]"); //
-    	    for (const ele of pageLink) {
-    	    ele.onclick = function() {
-    	   		// * 키워드, 검색조건 --> request 영역에서 가져오거나, 해당 요소에 접근해서 가져오기!
-    	   		  const keyword = "${keyword}" 
-    	    
-    	    	  let requestUrl = "/board/list?cpage=" + ele.getAttribute("data-curr");
-    	    	  if (keyword != ""){ //검색 정보가 있을 경우
-    	    	     requestUrl += "&keyword="+ keyword
-    	    	     		  +
-    	    
-    	   }
-    	  }
-    	})
     </script>
     
     
