@@ -22,8 +22,16 @@
 	   		</if>
 	   		<if test="condition == 'content'">
 	   			AND BOARD_CONTENT LIKE '%${keyword}%'
-	   		</if>	 
-		 ORDER BY BOARD_NO DESC
+	   		</if>	
+	   		
+	   		<choose>
+	   		<when test="orderby == 'count'" > 		 
+		 		ORDER BY count desc
+		 	</when>
+		 	<otherwise>
+		 		ORDER BY BOARD_NO DESC
+		 	</otherwise>
+		 </choose>
 	</select>
 	
 	<select id="selectBoardCount"
@@ -71,8 +79,7 @@
 			     and status = 'Y'
 			 order by reply_no desc
 	</select>
-	
-	
+
 	
 	<resultMap id="selectBoardDetail" type="Board">
 		 <result column="board_no" property="boardNo"/>
@@ -112,13 +119,47 @@
 		     set status = 'N'
 		     where board_no = #{boardNo}
 	</update>
+
+
+	<update id="updateBoard">
+		 update board 
+		     set board_title = #{boardTitle}
+		         , board_Content = #{boardContent}
+		         , origin_name = #{originName}
+		         , change_name = #{changeName}
+		         , create_date = sysdate
+		        where board_no = #{ boardNo}
+		           and status = 'Y'
 	
-	<!-- 
-	<delete id="deleteBoard">
-		delete from board where board_no = #{boardNo} 
-	</delete>
-	 -->
+	</update>
+
+
+
+
+
+
+    <!-- 댓글 부분 -->
+    
+    <insert id="insertReply">
+    	insert into reply (   REPLY_NO
+    						, REPLY_CONTENT
+    						, REF_BNO
+    						, REPLY_WRITER)
+    		VALUES (SEQ_RNO.NEXTVAL
+    				, #{replyContent}
+    				, #{refBno}
+    				, #{replyWriter})
+    	
+    
+    
+    </insert>
+
+
+
 	
+
+
+
 </mapper>
 
 

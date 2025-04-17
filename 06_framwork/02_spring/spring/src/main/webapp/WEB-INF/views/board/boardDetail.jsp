@@ -103,7 +103,7 @@
                 <thead>
                     <tr>
                         <th colspan="2">
-                            <textarea name="" id="content" cols="55" rows="2" class="form-control" style="resize: none;"></textarea>
+                            <textarea name="boardContent" id="content" cols="55" rows="2" class="form-control" style="resize: none; "></textarea>
                         </th>
                         <th style="vertical-align:middle;">
                             <button class="btn btn-secondary">등록</button>
@@ -131,5 +131,103 @@
 
     <%-- footer --%>
     <jsp:include page="../common/footer.jsp" />    
+    
+    <script>
+    
+ 
+    	window.addEventListener('load', function() {
+    			// [등록] 버튼 클릭 이벤트 => 비동기 통신 
+    			$("#replyArea button").click(function() {
+						// 입력된 댓글 내용을 추가 요청 => 비동기 통신(ajax)
+						  addReply();
+    			});
+    	});
+    
+    
+    	function addReply(){
+    	
+    		// 입력된 값이 없을 경우 메시지 표시하고 요청하지 않도록 처리
+    		if ($("#replayArea #content").val() == "") {
+    		 alert("댓그 내용 작성후 등록 가능합니다.");
+    		  return
+    		}
+    	
+    		
+    		// 비동기 통신 => ajax 
+    		 $.ajax({
+    		 	url : '/api/board/reply' ,   								// 요청 주소
+    		 	method: 'post',											// method 아니면  type: 가능
+    		 	data: {
+    		 			replyContent: $("#replyArea #content").val(),   // 댓글 사용
+    		 			replyWriter : '${ loginUser.userId }'	,		// 로그인 사용자의 아이디(세션 영역에 'loginUser' 키값으로 저장) 
+    		 			refBno		:  ${ board.boardNo}				// 게시글 번호 
+    		 			
+    		 			
+    		 			
+    		 	},		// { 키: 데이터..}
+    		 	success: function(result) {
+    		 		// * result => 응답 데이터(결과)
+    		 		//console.log(" 댓글 작성 성공 **");
+    		 		//console.log(result);
+    		 		
+    		 		// * 응답 결가가 "success"일 경우 댓글 표시되는 부분을 변경
+    		 		// => 댓글 목록을 조회하여 표시 
+    		 		
+    		 		if (result = "success") {
+    		 			selectReplyList();
+    		 			
+    		 			$("#replyArea #content").val("");
+    		 		}
+    		 		
+    		 	},
+    		 	error: function(err) {
+    		 	    // * err => 오류 내용
+    		 	    console.log(" 댓글 작성 실패 **");
+    		 		console.log(err);
+    		 	}
+    		 	    		
+    		 });    		 
+    	} 
+    	
+    	
+    	function selectReplyList(){
+    	
+    		$.ajax({
+    			url: '/api/board/reply',   
+    			// 요청방식 :get. 생략가능
+    			data: { boardNo: ${board.boardNo}},
+    			success: function(list) {
+    				// console.log("댓글 목록 조회 성공 **");
+    				// console.log(list);
+    				
+    				// * 댓글 개수 업데이트 
+    				$("#replyArea #rcount").text(list.length);
+    				
+    				// * 댓글 목록 업데이트 
+    				let replyData = "";
+    				
+    				for (const reply of list) {
+    				     replyData += "<tr>"
+    				     			  + "<th>" + reply.replyWriter + "</th>"
+    				     			  + "<td>" + reply.replyContent + "</td>"
+    				     			  + "<td>" + reply.createDate + "</td>"
+    				     			  + "</tr>";
+    				}
+    				
+    				$("#replyArea tbody").html(replyData);
+    			},
+    			
+    			error: function(err) {
+    				console.log("댓글 목록 조회 실패 **");
+    				console.log(err);
+    			}
+    			
+    			
+    		});    	
+    	}
+    	
+    </script>
+    
+    
 </body>
 </html>

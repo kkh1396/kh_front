@@ -38,6 +38,9 @@ public interface BoardService {
 		int increasecCount(int BoardNo);
 		
 		
+		/* 조회수 top5 목록 조회 */
+		ArrayList<Board> selectBoardTop5List();
+		
 }
 
 

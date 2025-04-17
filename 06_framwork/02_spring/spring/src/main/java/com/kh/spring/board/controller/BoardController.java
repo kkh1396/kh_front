@@ -1,4 +1,4 @@
-package com.kh.spring.board.constroller;
+package com.kh.spring.board.controller;
 
 import java.util.ArrayList;
 
@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.spring.board.dto.SearchDto;
 import com.kh.spring.board.model.vo.Board;
@@ -125,13 +127,11 @@ public class BoardController {
 		
 			Board board = bService.selectBoardDetail(bno);
 			
-			System.out.println(board);
 				 
 		// [3] 해당 게시글에 달린 댓글 정보 (=> DB에서 조회)
 				 ArrayList<Reply> rlist = bService.selectReplyList(bno);
 			
-				 
-				 System.out.println(rlist);
+				
 				 
 				 model.addAttribute("board", board);
 				 model.addAttribute("rlist", rlist);
@@ -165,11 +165,120 @@ public class BoardController {
 			 return "common/errorPage";
 		}
 		
-		
-		
-		
 	}
 	
+	
+	@GetMapping("/updateForm")
+	public String boardUpdateForm(@RequestParam(required=true) int bno, Model model) {
+		
+		
+
+		
+		Board board = bService.selectBoardDetail(bno);
+		
+		
+		model.addAttribute("board", board);
+		
+		
+		return "board/boardUpdate";
+	}
+	
+	
+	// * 요청 주소 : /board/update
+	// * 요청 방식 : POST
+	// * 요청 시 전달 데이터 형식 : boardNo, boardTitle   -> Board
+	//							파일 upfile -> MultipartFile
+	
+	@PostMapping("/update")
+	public ModelAndView boardUpdate(Board board, MultipartFile upfile,
+									ModelAndView mv, HttpSession session) {
+		
+		// * 새로 추가된 첨부파일이 있는 경우
+		//   Board 객체에 첨부파일 정보를 저장. 서버에 해당 파일 저장.
+		
+		// * 새로운 첨부파일이 있는 지 체크 
+		 if (!upfile.isEmpty()) { // 첨부파일 객체가 비어있지 않은 경우 
+			 // TODO : 기존 첨부파일이 있을 경우, 해당 파일 삭제
+			 
+			String changeName =  MyFileUtils.saveFile(upfile, session , "/resources/upfile/" );
+			// => 서버에 파일명을 변경하여 저장 .
+			
+			// * Board 객체에 첨부파일 정보 저장 (변경된 파일명, 원본 파일명)
+			board.setChangeName(changeName);
+			board.setOriginName(upfile.getOriginalFilename() );
+		 }
+		 /*
+		  *  * 첨부파일이 새로 추가된 경우
+		  *    - originName : 추가된 첨부파일 원본명
+		  *    - changeName : 추가된 첨부파일의 변경된 이름
+		  * 
+		  *  * 첨부파일이 새로 추가되지 않은 경우
+		  *    - originName : 게시글 추가 시 원본 정보
+		  *    - changName  : 게시글 추가 시 변경된 파일명 정보
+		  * 
+		  */
+		
+		// * 게시글 정보를 DB에 업데이트 
+		int result = bService.updateBoard(board);
+		
+
+		
+		if (result >0 ) {
+			
+			// * 게시글 변경 성공 시 --> "게시글 수정 성공했습니다" 메시지 저장
+			// 						  해당 게시글의 상세페이지로 이동 (URL 재요청)
+				
+			session.setAttribute("alertMsg", "게시글 수정 성공했습니다" );
+			mv.setViewName("redirect:board/detail?bno=" + board.getBoardNo());
+
+		} else {
+		
+			// * 게시글 변경 실패 시 --> "게시글 수정 실패했습니다." 메시지 저장
+			//						  에러 페이지로 응답 
+			
+			session.setAttribute("errorMsg", "게시글 수정 실패했습니다" );
+			mv.setViewName("common/errorPage");
+
+		}
+		
+			return mv;
+	}
+	
+	
+	/** -------------------------------------------------- **/ 
+	
+	/*
+	@PostMapping("rinsert")
+	@ResponseBody		// 페이지가 아닌 데이터 형식으로 응답하고자 할때 사용 
+	public String replyInsert(Reply reply) {
+		
+			// * 댓글 정보를 DB에 추가 
+			int result = bService.insertReply(reply);
+			
+			if (result > 0 ) {
+				// * 댓글 추가 성공 시 "success"로 응답
+				return "success";
+				
+			}else {
+				// * 댓글 추가 실패 시 "failed"로 응답 
+				return "failed";
+			}
+								
+	}
+	
+	
+	@GetMapping("rlist")
+	@ResponseBody
+	public ArrayList<Reply> selectReplyList(@RequestParam(required=true) int boardNo) {
+		 // * 해당 게시글의 댓글 목록 조회 
+			
+		   ArrayList<Reply> rlist =  bService.selectReplyList(boardNo);
+		
+		// * 조회된 결과 응답 
+		
+		   return rlist;
+	}	
+	*/
 }
 
 

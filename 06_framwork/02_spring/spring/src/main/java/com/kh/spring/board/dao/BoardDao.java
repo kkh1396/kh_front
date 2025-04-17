@@ -35,6 +35,14 @@ public interface BoardDao {
 	/* 게시글 삭제 */
 	int deleteBoard(int boardNo);
 
+	/* 게시글 수정 */
+	int updateBoard(Board board);
+
+	/* 댓글 추가 */
+	int insertReply(Reply reply);
+
+	ArrayList<Board> selectBoardTop5List();
+
 	
 
 }

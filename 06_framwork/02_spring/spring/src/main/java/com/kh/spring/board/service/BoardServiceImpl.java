@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.stereotype.Service;
 
 import com.kh.spring.board.dao.BoardDao;
@@ -15,6 +16,8 @@ import com.kh.spring.common.PageInfo;
 @Service
 public class BoardServiceImpl implements BoardService {
 
+    private final SecurityFilterChain filterChain;
+
 	// 필드 주입 방식
 	/*
 	@Autowired
@@ -24,8 +27,9 @@ public class BoardServiceImpl implements BoardService {
 	// 생성자 주입 방식
 	private final BoardDao boardDao;
 	@Autowired
-	public BoardServiceImpl(BoardDao boardDao) {
+	public BoardServiceImpl(BoardDao boardDao, SecurityFilterChain filterChain) {
 		this.boardDao = boardDao;
+		this.filterChain = filterChain;
 	}
 	
 	/**
@@ -65,8 +69,8 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public int updateBoard(Board board) {
-		// TODO Auto-generated method stub
-		return 0;
+
+		return boardDao.updateBoard(board);
 	}
 
 	@Override
@@ -77,8 +81,8 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public int insertReply(Reply reply) {
-		// TODO Auto-generated method stub
-		return 0;
+
+		return boardDao.insertReply(reply);
 	}
 
 	@Override
@@ -93,5 +97,22 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.increasecCount(BoardNo);
 	}
 
-	
+	@Override
+	public ArrayList<Board> selectBoardTop5List() {
+		// * RowBounds 객체 사용 => 페이징 처리 시 활용했던 객체
+		//   => RowBounds(시작위치, 개수)
+		RowBounds rb = new RowBounds(0,5);
+		
+		
+		// * 실행할 쿼리문 => 게시글 목록 조회 시 사용했던 쿼리문 사용 
+		//   SearchDto 객체에 정렬 기준 데이터를 추가 
+		SearchDto searchDto = new SearchDto();
+		searchDto.setOrderby("count");
+		
+		return boardDao.selectBoardList(rb, searchDto);
+		
+		
+	}
+
+
 }
