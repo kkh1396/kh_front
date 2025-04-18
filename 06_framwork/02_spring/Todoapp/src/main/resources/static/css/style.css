@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+
+
+
+.wrap {
+	border: 1px black solid;
+	width: 500px;
+	height: 400px;
+}
+
+span{
+	color: red;
+}

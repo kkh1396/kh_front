@@ -129,6 +129,14 @@
 
 
 	<h3>6) 반복문</h3>
+	<p th:inline="none"> 
+		 <code>th:each="변수명 : ${#numbers.sequence(시작번호, 끝번호)}"</code>
+	</p>
+	<div th:each="num : ${#numbers.sequence(1,5)}">
+		 <span th:text="${num}"></span>
+	</div>
+
+
 	<p>
 		 <code>th:each="변수명" : ${리스트}</code> : 리스트를 순차적으로 반복
 	</p>
@@ -156,9 +164,21 @@
 			<code>${#dates.createNow}</code> : 현재 시간 정보 
 		</li>
 	</ul>
+	
 
 	<!-- 현재 시간 정보를 "2025-04-17 16:09:30" 형식으로 출력 -->
 	 <span th:text="${#dates.format({#dates.createNow()}, 'yyyy-MM-dd hh:mm:ss')}">현재 시간</span>
+
+
+	<br><br>
+
+	<h2>3. 연습하기</h2>
+	<a href="/go">페이지 이동 </a>
+	<a th:href="@{/go}">페이지 이동</a>
+
+
+
+
 	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 
